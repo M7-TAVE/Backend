@@ -2,12 +2,17 @@ package com.example.travelbag.domain.location.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Location {
@@ -23,35 +28,9 @@ public class Location {
     @OneToMany(mappedBy = "location")
     private List<LocationAirline> location_airlines = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImage_url() {
-        return image_url;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
-    }
-
-    public List<LocationAirline> getLocation_airlines() {
-        return location_airlines;
-    }
-
-    public void setLocation_airlines(List<LocationAirline> location_airlines) {
-        this.location_airlines = location_airlines;
+    public List<Airline> getAirlines() {
+        return location_airlines.stream()
+                .map(LocationAirline::getAirline)
+                .collect(Collectors.toList());
     }
 }
