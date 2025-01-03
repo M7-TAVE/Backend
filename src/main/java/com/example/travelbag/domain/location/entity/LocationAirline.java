@@ -1,7 +1,5 @@
-package com.example.travelbag.domain.location_airline.entity;
+package com.example.travelbag.domain.location.entity;
 
-import com.example.travelbag.domain.airline.entity.Airline;
-import com.example.travelbag.domain.location.entity.Location;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
