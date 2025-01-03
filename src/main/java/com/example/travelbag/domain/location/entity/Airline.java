@@ -8,14 +8,13 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Location {
+public class Airline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,12 +24,9 @@ public class Location {
 
     private String image_url;
 
-    @OneToMany(mappedBy = "location")
+    private String url;
+
+    @OneToMany(mappedBy = "airline")
     private List<LocationAirline> location_airlines = new ArrayList<>();
 
-    public List<Airline> getAirlines() {
-        return location_airlines.stream()
-                .map(LocationAirline::getAirline)
-                .collect(Collectors.toList());
-    }
 }
