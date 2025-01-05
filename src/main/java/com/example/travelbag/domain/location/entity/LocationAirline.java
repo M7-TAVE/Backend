@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LocationAirline extends BaseTimeEntity {
+public class LocationAirline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
