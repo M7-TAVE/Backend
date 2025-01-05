@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Location extends BaseTimeEntity {
+public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -13,16 +13,12 @@ import java.time.LocalDateTime;
 public class LocationResponseDTO {
     private Long id;
     private String name;
-    private LocalDateTime createdDate;
-    private LocalDateTime lastModifiedDate;
 
     // Location 객체를 받아서 DTO 객체로 변환
     public static LocationResponseDTO of(Location location) {
         return LocationResponseDTO.builder()
                 .id(location.getId())
                 .name(location.getName())
-                .createdDate(location.getCreatedDate())
-                .lastModifiedDate(location.getLastModifiedDate())
                 .build();
     }
 }

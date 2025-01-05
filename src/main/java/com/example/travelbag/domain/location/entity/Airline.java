@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Airline extends BaseTimeEntity {
+public class Airline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

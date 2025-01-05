@@ -14,8 +14,6 @@ public class AirlineResponseDTO {
     private Long id;
     private String name;
     private String url;
-    private LocalDateTime createdDate;
-    private LocalDateTime lastModifiedDate;
 
     // Airline 객체를 받아서 DTO 객체로 변환
     public static AirlineResponseDTO of(Airline airline) {
@@ -23,8 +21,6 @@ public class AirlineResponseDTO {
                 .id(airline.getId())
                 .name(airline.getName())
                 .url(airline.getUrl())
-                .createdDate(airline.getCreatedDate())
-                .lastModifiedDate(airline.getLastModifiedDate())
                 .build();
     }
 }
