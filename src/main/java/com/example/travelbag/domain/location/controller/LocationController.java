@@ -2,6 +2,7 @@ package com.example.travelbag.domain.location.controller;
 
 import com.example.travelbag.domain.location.controller.api.LocationApi;
 import com.example.travelbag.domain.location.dto.AirlineResponseDTO;
+import com.example.travelbag.domain.location.dto.CurrencyInfoDTO;
 import com.example.travelbag.domain.location.dto.LocationResponseDTO;
 import com.example.travelbag.domain.location.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,11 @@ public class LocationController implements LocationApi {
         List<AirlineResponseDTO> airlines = locationService.getAirlinesByLocation(location_id);
         return ResponseEntity.ok(airlines);
     }
+
+    @Override
+    public ResponseEntity<CurrencyInfoDTO> getExchangeRate(@RequestParam(value="location_id") Long location_id){
+        CurrencyInfoDTO currency_info = locationService.getExchangeRate(location_id);
+        return ResponseEntity.ok(currency_info);
+    }
+
 }
