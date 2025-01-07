@@ -1,6 +1,5 @@
 package com.example.travelbag.domain.location.utils;
 
-import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,13 +19,15 @@ import java.util.Locale;
 @Component
 public class ExchangeRateUtils {
 
-    @Value("${exchange.rate.api.authKey}")
-    private static String authKey;
-
-    private static final String dataType = "AP01";
-
     private static HttpURLConnection connection = null;
 
+    private static final String dataType = "AP01";
+    private static String authKey;
+
+    @Value("${exchange.rate.api.authKey}")
+    public void setAuthKey(String value) {
+        authKey = value;
+    }
 
     public static double fetchExchangeRate(String searchDate, String currency_unit) {
         BufferedReader reader;
