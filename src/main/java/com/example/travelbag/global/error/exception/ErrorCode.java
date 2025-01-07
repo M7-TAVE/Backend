@@ -22,7 +22,17 @@ public enum ErrorCode {
     MEMBER_ALREADY_DELETED(HttpStatus.BAD_REQUEST, "이미 탈퇴한 회원입니다."),
 
     BAG_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 가방을 찾을 수 없습니다"),
-    NOT_BAG_OWNER(HttpStatus.BAD_REQUEST, "해당 가방의 소유자가 아닙니다.");
+    NOT_BAG_OWNER(HttpStatus.BAD_REQUEST, "해당 가방의 소유자가 아닙니다."),
+
+    TEMPLATE_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 템플릿을 찾을 수 없습니다."),
+
+    ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 물품을 찾을 수 없습니다."),
+
+    UPDATE_PERMISSION_DENIED(HttpStatus.BAD_REQUEST, "수정할 권한이 없습니다."),
+    DELETE_PERMISSION_DENIED(HttpStatus.BAD_REQUEST, "삭제할 권한이 없습니다."),
+
+    DUPLICATE_ITEM(HttpStatus.BAD_REQUEST, "이미 추가된 물품입니다.")
+    ;
 
     private final HttpStatus status;
     private final String message;
