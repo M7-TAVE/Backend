@@ -3,26 +3,22 @@ package com.example.travelbag.domain.location.dto;
 import com.example.travelbag.domain.location.entity.Location;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LocationResponseDTO {
-    private Long id;
-    private String name;
+public class CurrencyInfoDTO {
     private String country;
     private String currency_unit;
+    private double exchange_rate;
 
-    // Location 객체를 받아서 DTO 객체로 변환
-    public static LocationResponseDTO of(Location location) {
-        return LocationResponseDTO.builder()
-                .id(location.getId())
-                .name(location.getName())
+    // Location 객체와 환율 정보를 받아서 DTO 객체로 변환
+    public static CurrencyInfoDTO of(Location location, double exchangeRate) {
+        return CurrencyInfoDTO.builder()
                 .country(location.getCountry())
                 .currency_unit(location.getCurrency_unit())
+                .exchange_rate(exchangeRate)
                 .build();
     }
 }

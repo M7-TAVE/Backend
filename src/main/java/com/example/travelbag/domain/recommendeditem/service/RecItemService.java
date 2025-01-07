@@ -32,17 +32,24 @@ public class RecItemService {
     private final RecItemRepository recItemRepository;
 
     // 추천 준비물 카테고리 별로 조회 API
-    @Transactional
-    public List<RecItemResponseDto> getRecommendedItems(Long memberId, Long bagId, ItemCategory category) {
+    @Transactional(readOnly = true)
+    public List<RecItemResponseDto> getRecommendedItemsByCategory(Long memberId, Long bagId, ItemCategory category) {
+        // 멤버 검증
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
+        // 가방 검증
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        List<RecItem> recItemList = recItemRepository.findAllByCategory(category);
+        // 가방 소유자 검증
+        if (!bag.getMember().getId().equals(memberId)) {
+            throw new CustomException(ErrorCode.NOT_BAG_OWNER);
+        }
 
-        return RecItemMapper.toRecItemDtoList(recItemList);
+        // 해당 카테고리의 추천 아이템 조회
+        List<RecItem> recItems = recItemRepository.findAllByCategory(category);
+        return RecItemMapper.toRecItemDtoList(recItems);
     }
 
     // 추천 준비물에서 해당 가방에 물품 추가
