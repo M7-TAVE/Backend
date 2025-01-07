@@ -24,6 +24,10 @@ public class Location {
 
     private String name;
 
+    private String country;
+
+    private String currency_unit;
+
     @OneToMany(mappedBy = "location")
     private List<LocationAirline> location_airlines = new ArrayList<>();
 
