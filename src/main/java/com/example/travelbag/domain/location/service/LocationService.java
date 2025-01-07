@@ -55,7 +55,7 @@ public class LocationService {
                 System.out.println(e.getMessage());
                 searchDate = ExchangeRateUtils.getPreviousDate(searchDate);
             }
-        } while (exchange_rate > 0);
+        } while (exchange_rate == 0);
 
         return CurrencyInfoDTO.of(location, exchange_rate);
     }
