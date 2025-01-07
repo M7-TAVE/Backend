@@ -1,9 +1,7 @@
 package com.example.travelbag.domain.recommendeditem.entity;
 
 import com.example.travelbag.global.enums.ItemCategory;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,10 +15,11 @@ import lombok.NoArgsConstructor;
 public class RecItem {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private ItemCategory category;
 }

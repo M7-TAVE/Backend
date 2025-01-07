@@ -25,7 +25,7 @@ public class RecItemController implements RecItemApi {
     public ResponseEntity<List<RecItemResponseDto>> getRecommendedItems(@RequestParam Long memberId,
                                                                         @RequestParam Long bagId,
                                                                         @RequestParam ItemCategory category) {
-        List<RecItemResponseDto> recommendedItems = recItemService.getRecommendedItems(memberId, bagId, category);
+        List<RecItemResponseDto> recommendedItems = recItemService.getRecommendedItemsByCategory(memberId, bagId, category);
         return ResponseEntity.ok(recommendedItems);
     }
 

@@ -4,6 +4,7 @@ import com.example.travelbag.domain.bag.controller.api.BagApi;
 import com.example.travelbag.domain.bag.dto.BagRequestDto;
 import com.example.travelbag.domain.bag.dto.BagResponseDto;
 import com.example.travelbag.domain.bag.service.BagService;
+import com.example.travelbag.global.enums.Template;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +20,11 @@ public class BagController implements BagApi {
 
     // 가방 생성 (메인 페이지)
     @Override
-    @PostMapping("/template")
+    @PostMapping("/template/{templateId}")
     public ResponseEntity<BagResponseDto> createTemporaryBag(@PathVariable Long memberId,
+                                                             @RequestParam Template template,
                                                              @RequestBody BagRequestDto bagRequestDto) {
-        BagResponseDto bag = bagService.createTemporaryBag(bagRequestDto, memberId);
+        BagResponseDto bag = bagService.createTemporaryBag(memberId, template, bagRequestDto);
         return ResponseEntity.ok(bag);
     }
 

@@ -35,6 +35,7 @@ public class Bag extends BaseTimeEntity {
     private Template template;
 
     @OneToMany(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default  // Builder 패턴 사용시 기본값 설정
     private List<Item> items = new ArrayList<>();
 
     public void updateName(BagRequestDto bagRequestDto) {
