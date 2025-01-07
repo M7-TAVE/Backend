@@ -44,7 +44,6 @@ public class BagService {
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        // 권한 체크: 자신의 가방만 조회 가능
         if (!bag.getMember().getId().equals(memberId)) {
             throw new CustomException(ErrorCode.NOT_BAG_OWNER);
         }
@@ -63,7 +62,6 @@ public class BagService {
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        // 권한 체크: 자신의 가방만 수정 가능
         if (!bag.getMember().getId().equals(memberId)) {
             throw new CustomException(ErrorCode.NOT_BAG_OWNER);
         }
