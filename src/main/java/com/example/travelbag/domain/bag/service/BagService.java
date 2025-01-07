@@ -51,7 +51,6 @@ public class BagService {
         return BagResponseDto.builder()
                 .id(bag.getId())
                 .name(bag.getName())
-                .memberId(bag.getMember().getId())
                 .isTemporary(false)
                 .build();
     }
@@ -71,7 +70,6 @@ public class BagService {
         return BagResponseDto.builder()
                 .id(bag.getId())
                 .name(bag.getName())
-                .memberId(bag.getMember().getId())
                 .isTemporary(false)
                 .build();
     }
