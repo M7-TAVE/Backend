@@ -26,8 +26,8 @@ public class BagService {
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
         Bag bag = Bag.builder()
-                    .name(bagRequestDto.getName())
-                    .build();
+                .name(bagRequestDto.getName())
+                .build();
 
         Bag save = bagRepository.save(bag);
 
