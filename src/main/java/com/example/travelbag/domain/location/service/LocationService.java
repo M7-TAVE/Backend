@@ -47,9 +47,16 @@ public class LocationService {
         double exchange_rate = 0.0;
         String searchDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
 
+        int request_count = 0;    // 30회 이상 예외 발생으로 호출 시, 강제 종료 후 default 값 반환
+
         do {
             try {
+                if (request_count > 30) {
+                    exchange_rate = 1000.00;
+                    break;
+                }
                 exchange_rate = ExchangeRateUtils.fetchExchangeRate(searchDate, currency_unit);
+                request_count++;
             } catch (Exception e) {
                 // 예외 발생 시 하루 전 날짜로 변경
                 System.out.println(e.getMessage());
