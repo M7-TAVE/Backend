@@ -1,7 +1,7 @@
-package com.example.travelbag.domain.Souvenir.service;
+package com.example.travelbag.domain.souvenir.service;
 
-import com.example.travelbag.domain.Souvenir.dto.SouvenirResponseDTO;
-import com.example.travelbag.domain.Souvenir.repository.SouvenirRepository;
+import com.example.travelbag.domain.souvenir.dto.SouvenirResponseDTO;
+import com.example.travelbag.domain.souvenir.repository.SouvenirRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
-package com.example.travelbag.domain.Restaurant.controller;
+package com.example.travelbag.domain.restaurant.controller;
 
-import com.example.travelbag.domain.Restaurant.controller.api.RestaurantApi;
-import com.example.travelbag.domain.Restaurant.dto.RestaurantResponseDTO;
-import com.example.travelbag.domain.Restaurant.service.RestaurantService;
+import com.example.travelbag.domain.restaurant.controller.api.RestaurantApi;
+import com.example.travelbag.domain.restaurant.dto.RestaurantResponseDTO;
+import com.example.travelbag.domain.restaurant.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,6 +1,6 @@
-package com.example.travelbag.domain.Restaurant.repository;
+package com.example.travelbag.domain.restaurant.repository;
 
-import com.example.travelbag.domain.Restaurant.entity.Restaurant;
+import com.example.travelbag.domain.restaurant.entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

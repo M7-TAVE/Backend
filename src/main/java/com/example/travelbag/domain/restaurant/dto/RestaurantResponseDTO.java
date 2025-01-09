@@ -1,6 +1,6 @@
-package com.example.travelbag.domain.Restaurant.dto;
+package com.example.travelbag.domain.restaurant.dto;
 
-import com.example.travelbag.domain.Restaurant.entity.Restaurant;
+import com.example.travelbag.domain.restaurant.entity.Restaurant;
 import lombok.*;
 
 @Getter

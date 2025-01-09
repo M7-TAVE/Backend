@@ -1,7 +1,7 @@
-package com.example.travelbag.domain.Restaurant.service;
+package com.example.travelbag.domain.restaurant.service;
 
-import com.example.travelbag.domain.Restaurant.dto.RestaurantResponseDTO;
-import com.example.travelbag.domain.Restaurant.repository.RestaurantRepository;
+import com.example.travelbag.domain.restaurant.dto.RestaurantResponseDTO;
+import com.example.travelbag.domain.restaurant.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

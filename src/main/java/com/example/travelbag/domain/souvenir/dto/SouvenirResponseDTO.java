@@ -1,6 +1,6 @@
-package com.example.travelbag.domain.Souvenir.dto;
+package com.example.travelbag.domain.souvenir.dto;
 
-import com.example.travelbag.domain.Souvenir.entity.Souvenir;
+import com.example.travelbag.domain.souvenir.entity.Souvenir;
 import lombok.*;
 
 @Getter

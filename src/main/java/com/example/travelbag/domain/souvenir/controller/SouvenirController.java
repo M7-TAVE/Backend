@@ -1,8 +1,8 @@
-package com.example.travelbag.domain.Souvenir.controller;
+package com.example.travelbag.domain.souvenir.controller;
 
-import com.example.travelbag.domain.Souvenir.controller.api.SouvenirApi;
-import com.example.travelbag.domain.Souvenir.dto.SouvenirResponseDTO;
-import com.example.travelbag.domain.Souvenir.service.SouvenirService;
+import com.example.travelbag.domain.souvenir.controller.api.SouvenirApi;
+import com.example.travelbag.domain.souvenir.dto.SouvenirResponseDTO;
+import com.example.travelbag.domain.souvenir.service.SouvenirService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;

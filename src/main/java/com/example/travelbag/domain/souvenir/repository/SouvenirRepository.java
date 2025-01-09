@@ -1,6 +1,6 @@
-package com.example.travelbag.domain.Souvenir.repository;
+package com.example.travelbag.domain.souvenir.repository;
 
-import com.example.travelbag.domain.Souvenir.entity.Souvenir;
+import com.example.travelbag.domain.souvenir.entity.Souvenir;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
