@@ -2,18 +2,15 @@ package com.example.travelbag.domain.attraction.controller.api;
 
 import com.example.travelbag.domain.attraction.dto.AttractionResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@Tag(name = "Attraction", description = "관광지 관련 API")
-@RequestMapping("/attraction")
+@Tag(name = "관광지", description = "관광지 관련 API")
 public interface AttractionApi {
 
     @Operation(
@@ -24,6 +21,6 @@ public interface AttractionApi {
     // 반환 상태 코드 및 의미
     @ApiResponse(responseCode = "200", description = "관광지 목록 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
-    @GetMapping()
-    ResponseEntity<List<AttractionResponseDTO>> getAttractionsByLocation(@RequestParam(value="location_id") Long location_id);
+    ResponseEntity<List<AttractionResponseDTO>> getAttractionsByLocation(
+            @Parameter(description = "여행지 ID", required = true) Long location_id);
 }

@@ -2,18 +2,15 @@ package com.example.travelbag.domain.souvenir.controller.api;
 
 import com.example.travelbag.domain.souvenir.dto.SouvenirResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@Tag(name = "Souvenir", description = "기념품 관련 API")
-@RequestMapping("/souvenir")
+@Tag(name = "기념품", description = "기념품 관련 API")
 public interface SouvenirApi {
 
     @Operation(
@@ -24,6 +21,6 @@ public interface SouvenirApi {
     // 반환 상태 코드 및 의미
     @ApiResponse(responseCode = "200", description = "기념품 목록 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
-    @GetMapping()
-    ResponseEntity<List<SouvenirResponseDTO>> getSouvenirsByLocation(@RequestParam(value="location_id") Long location_id);
+    ResponseEntity<List<SouvenirResponseDTO>> getSouvenirsByLocation(
+            @Parameter(description = "여행지 ID", required = true) Long location_id);
 }
