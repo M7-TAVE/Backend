@@ -1,24 +1,21 @@
 package com.example.travelbag.global.error;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
-@RestControllerAdvice
-@RequiredArgsConstructor
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+import java.util.HashMap;
+import java.util.Map;
 
-    /** CustomException 예외 처리 */
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<GlobalResponse> handleCustomException(CustomException e) {
-        final ErrorCode errorCode = e.getErrorCode();
-        final ErrorResponse errorResponse =
-                ErrorResponse.of(errorCode.name(), errorCode.getMessage());
-        final GlobalResponse response =
-                GlobalResponse.fail(errorCode.getStatus().value(), errorResponse);
-        return ResponseEntity.status(errorCode.getStatus()).body(response);
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleGlobalException(Exception ex, WebRequest request) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
