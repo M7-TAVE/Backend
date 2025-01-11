@@ -4,6 +4,7 @@ import com.example.travelbag.domain.item.controller.api.ItemApi;
 import com.example.travelbag.domain.item.dto.ItemRequestDto;
 import com.example.travelbag.domain.item.dto.ItemResponseDto;
 import com.example.travelbag.domain.item.service.ItemService;
+import com.example.travelbag.global.enums.ItemCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,9 @@ public class ItemController implements ItemApi {
     @GetMapping
     @Override
     public ResponseEntity<List<ItemResponseDto>> getItems(@PathVariable Long memberId,
-                                                          @PathVariable Long bagId) {
-        List<ItemResponseDto> items = itemService.getItems(memberId, bagId);
+                                                          @PathVariable Long bagId,
+                                                          @RequestParam ItemCategory itemCategory) {
+        List<ItemResponseDto> items = itemService.getItems(memberId, bagId, itemCategory);
         return ResponseEntity.ok(items);
     }
 

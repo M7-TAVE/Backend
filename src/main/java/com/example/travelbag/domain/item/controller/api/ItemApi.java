@@ -2,6 +2,7 @@ package com.example.travelbag.domain.item.controller.api;
 
 import com.example.travelbag.domain.item.dto.ItemRequestDto;
 import com.example.travelbag.domain.item.dto.ItemResponseDto;
+import com.example.travelbag.global.enums.ItemCategory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@Tag(name = "물품 관리", description = "가방의 물품 CRUD API")
+@Tag(name = "물품 관리", description = "물품 관련 API")
 public interface ItemApi {
 
     @Operation(summary = "물품 생성", description = "가방에 새로운 물품을 생성합니다.")
@@ -38,8 +39,9 @@ public interface ItemApi {
     })
     ResponseEntity<List<ItemResponseDto>> getItems(
             @Parameter(description = "회원 ID", required = true) Long memberId,
-            @Parameter(description = "가방 ID", required = true) Long bagId
-    );
+            @Parameter(description = "가방 ID", required = true) Long bagId,
+            @Parameter(description = "카테고리", required = true)ItemCategory itemCategory
+            );
 
     @Operation(summary = "물품 이름 수정", description = "가방의 특정 물품 이름을 수정합니다.")
     @ApiResponses({
