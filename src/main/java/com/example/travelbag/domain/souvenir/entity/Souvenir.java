@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Souvenir {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
