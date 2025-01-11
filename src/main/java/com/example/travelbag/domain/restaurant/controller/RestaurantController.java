@@ -2,6 +2,7 @@ package com.example.travelbag.domain.restaurant.controller;
 
 import com.example.travelbag.domain.restaurant.controller.api.RestaurantApi;
 import com.example.travelbag.domain.restaurant.dto.RestaurantResponseDTO;
+import com.example.travelbag.domain.restaurant.dto.RestaurantsResponseDTO;
 import com.example.travelbag.domain.restaurant.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,9 @@ public class RestaurantController implements RestaurantApi {
 
     @Override
     @GetMapping("/{location_id}")
-    public ResponseEntity<List<RestaurantResponseDTO>> getRestaurantsByLocation(@PathVariable Long location_id) {
-        List<RestaurantResponseDTO> airlines = restaurantService.getRestaurantsByLocation(location_id);
-        return ResponseEntity.ok(airlines);
+    public ResponseEntity<RestaurantsResponseDTO> getRestaurantsByLocation(@PathVariable Long location_id) {
+        RestaurantsResponseDTO restaurants = restaurantService.getRestaurantsByLocation(location_id);
+        return ResponseEntity.ok(restaurants);
     }
 }
 

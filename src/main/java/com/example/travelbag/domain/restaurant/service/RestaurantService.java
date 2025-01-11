@@ -1,6 +1,7 @@
 package com.example.travelbag.domain.restaurant.service;
 
 import com.example.travelbag.domain.restaurant.dto.RestaurantResponseDTO;
+import com.example.travelbag.domain.restaurant.dto.RestaurantsResponseDTO;
 import com.example.travelbag.domain.restaurant.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,12 @@ public class RestaurantService {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
-    public List<RestaurantResponseDTO> getRestaurantsByLocation(Long location_id) {
-        return restaurantRepository.findByLocationId(location_id)
+    public RestaurantsResponseDTO getRestaurantsByLocation(Long location_id) {
+        List<RestaurantResponseDTO> restaurantResponseDTOS = restaurantRepository.findByLocationId(location_id)
                 .stream()
                 .map(RestaurantResponseDTO::of)
                 .collect(Collectors.toList());
+
+        return RestaurantsResponseDTO.of(location_id, restaurantResponseDTOS);
     }
 }
