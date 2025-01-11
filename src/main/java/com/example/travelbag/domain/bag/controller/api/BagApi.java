@@ -14,11 +14,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@Tag(name = "가방 관리", description = "가방 CRUD API")
+@Tag(name = "가방 관리", description = "가방 관련 API")
 public interface BagApi {
 
-    @Operation(summary = "가방 생성(홈 화면)", description = "템플릿의 플러스 버튼을 클릭하여 가방 생성" +
-            "FREESTYLE / WOMAN_SOLO / MAN_SOLO / BUSINESS")
+    @Operation(summary = "가방 생성(홈 화면)", description = "템플릿의 플러스 버튼을 클릭하여 가방 생성")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "생성 성공",
                     content = @Content(schema = @Schema(implementation = BagResponseDto.class))),
@@ -27,7 +26,7 @@ public interface BagApi {
     })
     ResponseEntity<BagResponseDto> createTemporaryBag(
             @Parameter(description = "회원 ID", required = true) Long memberId,
-            @Parameter(description = "템플릿 ID", required = true) Template template,
+            @Parameter(description = "템플릿", required = true) Template template,
             @Parameter(description = "가방 요청 정보", required = true) BagRequestDto bagRequestDto
     );
 

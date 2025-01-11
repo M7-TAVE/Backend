@@ -9,6 +9,7 @@ import com.example.travelbag.domain.item.mapper.ItemMapper;
 import com.example.travelbag.domain.item.repository.ItemRepository;
 import com.example.travelbag.domain.member.entity.Member;
 import com.example.travelbag.domain.member.repository.MemberRepository;
+import com.example.travelbag.global.enums.ItemCategory;
 import com.example.travelbag.global.error.exception.CustomException;
 import com.example.travelbag.global.error.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,16 +42,20 @@ public class ItemService {
         return ItemMapper.toItemDto(itemEntity);
     }
 
-    // 물품 전체 조회 API
+    // 카테고리별 물품 조회 API
     @Transactional(readOnly = true)
-    public List<ItemResponseDto> getItems(Long memberId, Long bagId) {
+    public List<ItemResponseDto> getItems(Long memberId, Long bagId, ItemCategory itemCategory) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        List<Item> items = itemRepository.findAll();
+        if (!member.getId().equals(bag.getMember().getId())) {
+            throw new CustomException(ErrorCode.BAG_NOT_OWNED_BY_MEMBER);
+        }
+
+        List<Item> items = itemRepository.findByBagAndCategory(bag, itemCategory);
 
         return ItemMapper.toItemDtos(items);
     }
