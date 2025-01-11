@@ -20,6 +20,8 @@ public class Attraction {
 
     private String name;
 
+    private String url;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location;

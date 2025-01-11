@@ -12,6 +12,7 @@ public class RestaurantResponseDTO {
     private Long id;
     private String name;
     private String signature;
+    private String url;
 
     // Attraction 객체를 받아서 DTO 객체로 변환
     public static RestaurantResponseDTO of(Restaurant restaurant) {
@@ -19,6 +20,7 @@ public class RestaurantResponseDTO {
                 .id(restaurant.getId())
                 .name(restaurant.getName())
                 .signature(restaurant.getSignature())
+                .url(restaurant.getUrl())
                 .build();
     }
 }
