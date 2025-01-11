@@ -1,6 +1,7 @@
 package com.example.travelbag.domain.location.service;
 
 import com.example.travelbag.domain.location.dto.AirlineResponseDTO;
+import com.example.travelbag.domain.location.dto.AirlinesResponseDTO;
 import com.example.travelbag.domain.location.dto.CurrencyInfoDTO;
 import com.example.travelbag.domain.location.dto.LocationResponseDTO;
 import com.example.travelbag.domain.location.entity.Location;
@@ -28,14 +29,16 @@ public class LocationService {
                 .collect(Collectors.toList());
     }
 
-    public List<AirlineResponseDTO> getAirlinesByLocation(Long location_id) {
+    public AirlinesResponseDTO getAirlinesByLocation(Long location_id) {
         Location location = locationRepository.findById(location_id)
                 .orElseThrow(() -> new RuntimeException("Location not found"));
 
-        return location.getAirlines()
+        List<AirlineResponseDTO> airlineResponseDTOs = location.getAirlines()
                 .stream()
                 .map(AirlineResponseDTO::of)
-                .collect(Collectors.toList());  // AirlineResponseDTO를 통해 Airline 목록 반환
+                .collect(Collectors.toList());
+
+        return AirlinesResponseDTO.of(location_id, airlineResponseDTOs);
     }
 
     public CurrencyInfoDTO getExchangeRate(Long location_id) {
@@ -55,8 +58,8 @@ public class LocationService {
                     exchange_rate = 1000.00;
                     break;
                 }
-                exchange_rate = ExchangeRateUtils.fetchExchangeRate(searchDate, currency_unit);
                 request_count++;
+                exchange_rate = ExchangeRateUtils.fetchExchangeRate(searchDate, currency_unit);
             } catch (Exception e) {
                 // 예외 발생 시 하루 전 날짜로 변경
                 System.out.println(e.getMessage());

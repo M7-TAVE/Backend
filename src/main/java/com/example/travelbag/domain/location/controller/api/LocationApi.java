@@ -1,6 +1,7 @@
 package com.example.travelbag.domain.location.controller.api;
 
 import com.example.travelbag.domain.location.dto.AirlineResponseDTO;
+import com.example.travelbag.domain.location.dto.AirlinesResponseDTO;
 import com.example.travelbag.domain.location.dto.CurrencyInfoDTO;
 import com.example.travelbag.domain.location.dto.LocationResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +34,7 @@ public interface LocationApi {
     // 반환 상태 코드 및 의미
     @ApiResponse(responseCode = "200", description = "항공사 목록 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
-    ResponseEntity<List<AirlineResponseDTO>> getAirlinesByLocation(
+    ResponseEntity<AirlinesResponseDTO> getAirlinesByLocation(
             @Parameter(description = "여행지 ID", required = true) Long location_id);
 
     @Operation(

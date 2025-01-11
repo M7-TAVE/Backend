@@ -2,6 +2,7 @@ package com.example.travelbag.domain.attraction.controller;
 
 import com.example.travelbag.domain.attraction.controller.api.AttractionApi;
 import com.example.travelbag.domain.attraction.dto.AttractionResponseDTO;
+import com.example.travelbag.domain.attraction.dto.AttractionsResponseDTO;
 import com.example.travelbag.domain.attraction.service.AttractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,9 @@ public class AttractionController implements AttractionApi {
 
     @Override
     @GetMapping("/{location_id}")
-    public ResponseEntity<List<AttractionResponseDTO>> getAttractionsByLocation(@PathVariable Long location_id) {
-        List<AttractionResponseDTO> airlines = attractionService.getAttractionsByLocation(location_id);
-        return ResponseEntity.ok(airlines);
+    public ResponseEntity<AttractionsResponseDTO> getAttractionsByLocation(@PathVariable Long location_id) {
+        AttractionsResponseDTO attractions = attractionService.getAttractionsByLocation(location_id);
+        return ResponseEntity.ok(attractions);
     }
 }
 

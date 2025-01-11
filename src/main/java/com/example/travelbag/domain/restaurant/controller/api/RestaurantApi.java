@@ -1,6 +1,7 @@
 package com.example.travelbag.domain.restaurant.controller.api;
 
 import com.example.travelbag.domain.restaurant.dto.RestaurantResponseDTO;
+import com.example.travelbag.domain.restaurant.dto.RestaurantsResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,6 +22,6 @@ public interface RestaurantApi {
     // 반환 상태 코드 및 의미
     @ApiResponse(responseCode = "200", description = "맛집 목록 조회 성공")
     @ApiResponse(responseCode = "401", description = "인증 실패")
-    ResponseEntity<List<RestaurantResponseDTO>> getRestaurantsByLocation(
+    ResponseEntity<RestaurantsResponseDTO> getRestaurantsByLocation(
             @Parameter(description = "여행지 ID", required = true) Long location_id);
 }
