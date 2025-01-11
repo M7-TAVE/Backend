@@ -31,7 +31,9 @@ public enum ErrorCode {
     UPDATE_PERMISSION_DENIED(HttpStatus.BAD_REQUEST, "수정할 권한이 없습니다."),
     DELETE_PERMISSION_DENIED(HttpStatus.BAD_REQUEST, "삭제할 권한이 없습니다."),
 
-    DUPLICATE_ITEM(HttpStatus.BAD_REQUEST, "이미 추가된 물품입니다.")
+    DUPLICATE_ITEM(HttpStatus.BAD_REQUEST, "이미 추가된 물품입니다."),
+
+    BAG_NOT_OWNED_BY_MEMBER(HttpStatus.BAD_REQUEST, "가방 없습니다.")
     ;
 
     private final HttpStatus status;

@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 @Tag(name = "회원 관리", description = "회원 관련 API")
 public interface MemberApi {
 
-    @Operation(summary = "회원가입", description = "새로운 회원을 등록합니다.")
+    @Operation(summary = "회원가입 (\"회원1\" 저장되어있음)", description = "새로운 회원을 등록합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "회원가입 성공",
                     content = @Content(schema = @Schema(type = "string", example = "홍길동님이 회원가입 되었습니다."))),
