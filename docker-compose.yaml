@@ -7,9 +7,9 @@ services:
     ports:
       - "8080:8080"  # 호스트와 컨테이너의 포트를 매핑
     environment:
-      SPRING_DATASOURCE_URL: $DB_URL  # RDS 연결 URL
-      SPRING_DATASOURCE_USERNAME: $DB_USER  # RDS에 연결할 사용자명
-      SPRING_DATASOURCE_PASSWORD: $DB_PASSWORD  # RDS에 연결할 비밀번호
+      SPRING_DATASOURCE_URL: ${DB_URL}  # RDS 연결 URL
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}  # RDS에 연결할 사용자명
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}  # RDS에 연결할 비밀번호
 ##      SPRING_JPA_HIBERNATE_DDL_AUTO: none  # Hibernate 설정 (필요에 따라 수정)
 #      SPRING_PROFILES_ACTIVE: prod  # 프로덕션 환경 설정 (필요에 따라 수정)
     restart: always  # 컨테이너가 종료되면 항상 재시작
