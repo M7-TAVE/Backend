@@ -1,6 +1,5 @@
 package com.example.travelbag.domain.bag.dto;
 
-import com.example.travelbag.domain.member.entity.Member;
 import com.example.travelbag.global.enums.Template;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
