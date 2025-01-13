@@ -33,7 +33,9 @@ public enum ErrorCode {
 
     DUPLICATE_ITEM(HttpStatus.BAD_REQUEST, "이미 추가된 물품입니다."),
 
-    BAG_NOT_OWNED_BY_MEMBER(HttpStatus.BAD_REQUEST, "가방 없습니다.")
+    BAG_NOT_OWNED_BY_MEMBER(HttpStatus.BAD_REQUEST, "가방 없습니다."),
+
+    CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 카테고리를 찾을 수 없습니다.")
     ;
 
     private final HttpStatus status;

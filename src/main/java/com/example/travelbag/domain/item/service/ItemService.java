@@ -1,5 +1,6 @@
 package com.example.travelbag.domain.item.service;
 
+import com.example.travelbag.domain.bag.dto.BagResponseDto;
 import com.example.travelbag.domain.bag.entity.Bag;
 import com.example.travelbag.domain.bag.repository.BagRepository;
 import com.example.travelbag.domain.item.dto.ItemRequestDto;
@@ -28,23 +29,31 @@ public class ItemService {
 
     // 물품 생성 API
     @Transactional
-    public ItemResponseDto createItem(Long memberId, Long bagId, ItemRequestDto itemRequestDto) {
+    public ItemResponseDto createItem(Long memberId, Long bagId, Long categoryId, ItemRequestDto itemRequestDto) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        Item itemEntity = ItemMapper.toItemEntity(itemRequestDto);
+        ItemCategory category = ItemCategory.fromId(categoryId)
+                .orElseThrow(() -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND));
 
-        itemRepository.save(itemEntity);
+        Item item = Item.builder()
+                .name(itemRequestDto.getName())
+                .category(category)
+                .bag(bag)
+                .isPacked(false)
+                .build();
 
-        return ItemMapper.toItemDto(itemEntity);
+        itemRepository.save(item);
+
+        return ItemMapper.toItemDto(item);
     }
 
     // 카테고리별 물품 조회 API
     @Transactional(readOnly = true)
-    public List<ItemResponseDto> getItems(Long memberId, Long bagId, ItemCategory itemCategory) {
+    public List<ItemResponseDto> getItems(Long memberId, Long bagId, Long categoryId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
@@ -55,7 +64,11 @@ public class ItemService {
             throw new CustomException(ErrorCode.BAG_NOT_OWNED_BY_MEMBER);
         }
 
-        List<Item> items = itemRepository.findByBagAndCategory(bag, itemCategory);
+        // categoryId로 ItemCategory 찾기
+        ItemCategory category = ItemCategory.fromId(categoryId)
+                .orElseThrow(() -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND));
+
+        List<Item> items = itemRepository.findByBagIdAndCategoryId(bagId, category);
 
         return ItemMapper.toItemDtos(items);
     }
@@ -77,7 +90,6 @@ public class ItemService {
         }
 
         item.updateItemInfo(itemRequestDto);
-        itemRepository.save(item);
         return ItemMapper.toItemDto(item);
     }
 
@@ -98,5 +110,26 @@ public class ItemService {
         }
 
         itemRepository.delete(item);
+    }
+
+    // is_packed 토글 API
+    @Transactional
+    public ItemResponseDto togglePacked(Long memberId, Long bagId, Long itemId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+
+        Bag bag = bagRepository.findById(bagId)
+                .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
+
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new CustomException(ErrorCode.ITEM_NOT_FOUND));
+
+        if (!member.getId().equals(item.getBag().getMember().getId())){
+            throw new CustomException(ErrorCode.DELETE_PERMISSION_DENIED);
+        }
+
+        item.togglePacked();
+
+        return ItemMapper.toItemDto(item);
     }
 }

@@ -22,9 +22,9 @@ public class BagController implements BagApi {
     @Override
     @PostMapping("/template/{templateId}")
     public ResponseEntity<BagResponseDto> createTemporaryBag(@PathVariable Long memberId,
-                                                             @RequestParam Template template,
+                                                             @PathVariable Long templateId,
                                                              @RequestBody BagRequestDto bagRequestDto) {
-        BagResponseDto bag = bagService.createTemporaryBag(memberId, template, bagRequestDto);
+        BagResponseDto bag = bagService.createTemporaryBag(memberId, templateId, bagRequestDto);
         return ResponseEntity.ok(bag);
     }
 
@@ -62,5 +62,13 @@ public class BagController implements BagApi {
                                             @PathVariable Long bagId) {
         bagService.deleteBag(memberId, bagId);
         return ResponseEntity.ok("해당 가방이 삭제되었습니다.");
+    }
+
+    // is_temporary 토글 API
+    @PatchMapping("/{bagId}/toggle-temporary")
+    public ResponseEntity<BagResponseDto> toggleTemporary(@PathVariable Long memberId,
+                                                          @PathVariable Long bagId) {
+        BagResponseDto bag = bagService.toggleTemporary(memberId, bagId);
+        return ResponseEntity.ok(bag);
     }
 }

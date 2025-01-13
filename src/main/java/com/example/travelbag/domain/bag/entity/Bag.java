@@ -27,6 +27,9 @@ public class Bag extends BaseTimeEntity {
 
     private String name;
 
+    @Builder.Default
+    private boolean isTemporary = true;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
@@ -42,5 +45,9 @@ public class Bag extends BaseTimeEntity {
         if (bagRequestDto.getName() != null) {
             this.name = bagRequestDto.getName();
         }
+    }
+
+    public void toggleTemporary() {
+        this.isTemporary = !this.isTemporary;
     }
 }

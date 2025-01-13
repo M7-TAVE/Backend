@@ -1,4 +1,4 @@
-package com.example.travelbag.domain.member.controller;
+package com.example.travelbag.domain.member.controller.api.auth.status;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
