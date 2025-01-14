@@ -8,6 +8,7 @@ import com.example.travelbag.domain.item.mapper.ItemMapper;
 import com.example.travelbag.domain.item.repository.ItemRepository;
 import com.example.travelbag.domain.member.entity.Member;
 import com.example.travelbag.domain.member.repository.MemberRepository;
+import com.example.travelbag.domain.recommendeditem.dto.RecItemRequestDto;
 import com.example.travelbag.domain.recommendeditem.dto.RecItemResponseDto;
 import com.example.travelbag.domain.recommendeditem.entity.RecItem;
 import com.example.travelbag.domain.recommendeditem.mapper.RecItemMapper;
@@ -33,45 +34,43 @@ public class RecItemService {
 
     // 추천 준비물 카테고리 별로 조회 API
     @Transactional(readOnly = true)
-    public List<RecItemResponseDto> getRecommendedItemsByCategory(Long memberId, Long bagId, ItemCategory category) {
-        // 멤버 검증
+    public List<RecItemResponseDto> getRecommendedItemsByCategory(Long memberId, Long bagId, Long categoryId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
-        // 가방 검증
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        // 가방 소유자 검증
         if (!bag.getMember().getId().equals(memberId)) {
             throw new CustomException(ErrorCode.NOT_BAG_OWNER);
         }
 
-        // 해당 카테고리의 추천 아이템 조회
+        ItemCategory category = ItemCategory.fromId(categoryId)
+                .orElseThrow(() -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND));
+
         List<RecItem> recItems = recItemRepository.findAllByCategory(category);
         return RecItemMapper.toRecItemDtoList(recItems);
     }
 
     // 추천 준비물에서 해당 가방에 물품 추가
     @Transactional
-    public ItemResponseDto addRecItemToBag(Long memberId, Long bagId, String name, ItemCategory category) {
-        // 멤버 검증
+    public ItemResponseDto addRecItemToBag(Long memberId, Long bagId, Long categoryId, RecItemRequestDto recItemRequest) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
-        // 가방 검증
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        // 가방 소유자 검증
         if (!bag.getMember().getId().equals(memberId)) {
             throw new CustomException(ErrorCode.NOT_BAG_OWNER);
         }
 
-        // 이미 추가된 물품인지 확인
+        ItemCategory category = ItemCategory.fromId(categoryId)
+                .orElseThrow(() -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND));
+
         boolean isDuplicate = itemRepository.existsByBagIdAndNameAndCategory(
                 bagId,
-                name,
+                recItemRequest.getName(),
                 category
         );
 
@@ -79,9 +78,8 @@ public class RecItemService {
             throw new CustomException(ErrorCode.DUPLICATE_ITEM);
         }
 
-        // 새로운 물품 생성
         Item newItem = Item.builder()
-                .name(name)
+                .name(recItemRequest.getName())
                 .category(category)
                 .bag(bag)
                 .isPacked(false)

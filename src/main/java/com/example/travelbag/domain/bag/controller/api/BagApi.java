@@ -26,7 +26,7 @@ public interface BagApi {
     })
     ResponseEntity<BagResponseDto> createTemporaryBag(
             @Parameter(description = "회원 ID", required = true) Long memberId,
-            @Parameter(description = "템플릿", required = true) Template template,
+            @Parameter(description = "템플릿 ID", required = true) Long templateId,
             @Parameter(description = "가방 요청 정보", required = true) BagRequestDto bagRequestDto
     );
 
@@ -74,6 +74,18 @@ public interface BagApi {
                     content = @Content(schema = @Schema(type = "string", example = "가방 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<String> deleteBag(
+            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "가방 ID", required = true) Long bagId
+    );
+
+    @Operation(summary = "is_temporary 토글", description = "is_temporary 토글")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "수정 성공",
+                    content = @Content(schema = @Schema(type = "string", example = "변경되었습니다."))),
+            @ApiResponse(responseCode = "404", description = "가방을 찾을 수 없음",
+                    content = @Content(schema = @Schema(type = "string", example = "가방 ID를 찾을 수 없습니다.")))
+    })
+    ResponseEntity<BagResponseDto> toggleTemporary(
             @Parameter(description = "회원 ID", required = true) Long memberId,
             @Parameter(description = "가방 ID", required = true) Long bagId
     );

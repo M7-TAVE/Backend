@@ -4,6 +4,8 @@ import com.example.travelbag.domain.bag.entity.Bag;
 import com.example.travelbag.domain.item.dto.ItemRequestDto;
 import com.example.travelbag.domain.item.dto.ItemResponseDto;
 import com.example.travelbag.global.enums.ItemCategory;
+import com.example.travelbag.global.error.exception.CustomException;
+import com.example.travelbag.global.error.exception.ErrorCode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,10 +24,11 @@ public class Item {
 
     private String name;
 
+    @Builder.Default
+    private boolean isPacked = false;
+
     @Enumerated(EnumType.STRING)
     private ItemCategory category;
-
-    private boolean isPacked;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bag_id")
@@ -35,5 +38,9 @@ public class Item {
         if (itemRequestDto.getName() != null) {
             this.name = itemRequestDto.getName();
         }
+    }
+
+    public void togglePacked() {
+        this.isPacked = !this.isPacked;
     }
 }
