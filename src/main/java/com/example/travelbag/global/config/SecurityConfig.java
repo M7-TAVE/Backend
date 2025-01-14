@@ -48,20 +48,12 @@ public class SecurityConfig {
                                 "/oauth2/**",
                                 "/api/auth/status",
                                 "/api/auth/login",
-                                "/api/**"  // API 엔드포인트 추가
+                                "/api/**",  // API 엔드포인트 추가
+                                "/api-docs/**",  // Swagger API Docs 허용
+                                "/swagger-ui/**",   // Swagger UI 허용
+                                "/swagger-ui/index.html"  // Swagger HTML 허용
                         ).permitAll()
                         .anyRequest().authenticated()
-                )
-                .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customOAuth2UserService)
-                        )
-                        .successHandler(oauth2AuthenticationSuccessHandler())
-                )
-                .logout(logout -> logout
-                        .logoutSuccessUrl("http://localhost:5174/login")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
                 );
 
         return http.build();
