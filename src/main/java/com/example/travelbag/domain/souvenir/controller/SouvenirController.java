@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/souvenir")
+@RequestMapping("/api/souvenir")
 public class SouvenirController implements SouvenirApi {
 
     @Autowired
