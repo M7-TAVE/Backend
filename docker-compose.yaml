@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  app:
+    build: .  # Dockerfile이 위치한 디렉토리에서 이미지를 빌드
+    container_name: travelbag_app
+    ports:
+      - "8080:8080"  # 호스트와 컨테이너의 포트를 매핑
+    environment:
+      SPRING_DATASOURCE_URL: ${DB_URL}  # RDS 연결 URL
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}  # RDS에 연결할 사용자명
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}  # RDS에 연결할 비밀번호
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update  # Hibernate 설정
+    restart: always  # 컨테이너가 종료되면 항상 재시작
