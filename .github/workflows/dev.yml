@@ -21,7 +21,9 @@ jobs:
           java-version: 17
       # Gradle Buile
       - name: Build with Gradle
-        run: sudo ./gradlew clean build
+        run: |
+          cd /Backend
+          sudo ./gradlew clean build
       # DockerHub 로그인
       - name: Login to DockerHub
         uses: docker/login-action@v1
