@@ -21,4 +21,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     boolean existsByBagIdAndNameAndCategory(@Param("bagId") Long bagId,
                                             @Param("name") String name,
                                             @Param("category") ItemCategory category);
+
+    List<Item> findAllByBagId(Long bagId);
 }
