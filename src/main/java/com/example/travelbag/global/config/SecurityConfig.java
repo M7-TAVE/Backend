@@ -31,7 +31,7 @@ public class SecurityConfig {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
                 // Vite 프론트엔드로 리다이렉트
-                response.sendRedirect("http://localhost:5174/");
+                response.sendRedirect("https://m7-frontend.vercel.app/");
             }
         };
     }
@@ -62,7 +62,7 @@ public class SecurityConfig {
                         .successHandler(oauth2AuthenticationSuccessHandler())
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("http://localhost:5174/login")
+                        .logoutSuccessUrl("https://m7-frontend.vercel.app/login")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 );

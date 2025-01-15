@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "redirect:http://localhost:5173/"; // 프론트엔드 홈으로 리다이렉트
+        return "redirect:https://m7-frontend.vercel.app/"; // 프론트엔드 홈으로 리다이렉트
     }
 }
