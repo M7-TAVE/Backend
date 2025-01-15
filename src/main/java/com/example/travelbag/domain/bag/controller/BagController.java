@@ -4,7 +4,6 @@ import com.example.travelbag.domain.bag.controller.api.BagApi;
 import com.example.travelbag.domain.bag.dto.BagRequestDto;
 import com.example.travelbag.domain.bag.dto.BagResponseDto;
 import com.example.travelbag.domain.bag.service.BagService;
-import com.example.travelbag.global.enums.Template;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
