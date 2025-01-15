@@ -22,7 +22,7 @@ jobs:
       # Gradle Buile
       - name: Build with Gradle
         run: |
-          cd /Backend
+          sudo chmod +x ./gradlew
           sudo ./gradlew clean build
       # DockerHub 로그인
       - name: Login to DockerHub
