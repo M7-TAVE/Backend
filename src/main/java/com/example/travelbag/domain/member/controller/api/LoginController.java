@@ -1,4 +1,4 @@
-package com.example.travelbag.controller;
+package com.example.travelbag.domain.member.controller.api;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
