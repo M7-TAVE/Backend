@@ -18,6 +18,10 @@ public class MemberService {
     @Transactional
     public MemberResponseDto createMember(MemberRequestDto memberRequestDto) {
 
+        if (memberRepository.findByKakaoId(memberRequestDto.getKakaoId()).isPresent()) {
+            throw new IllegalArgumentException("already registerd user !!!");
+        }
+
         Member memberEntity = MemberMapper.toMemberEntity(memberRequestDto);
         memberRepository.save(memberEntity);
         return MemberMapper.toMemberDto(memberEntity);

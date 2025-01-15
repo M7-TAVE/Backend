@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class MemberRequestDto {
-
+    private String kakaoId;
+    private String email;
+    private String nickname;
     private String name;
 }

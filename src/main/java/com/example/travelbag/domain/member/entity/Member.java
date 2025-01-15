@@ -22,6 +22,16 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = true)
+    private String kakaoId; // 카카오 고유 ID (Unique)
+
+    @Column(nullable = true)
+    private String email; // 이메일
+
+    @Column(nullable = true)
+    private String nickname; // 닉네임
+
+    @Column(nullable = true) // name 필드 추가
     private String name;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
