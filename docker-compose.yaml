@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  travelbag-app:
-    image: seannnnn/travelbag-app-dev # DockerHub에서 pull 받을 이미지
-    container_name: travelbag-app-dev
+  app:
+    build: .  # Dockerfile이 위치한 디렉토리에서 이미지를 빌드
+    container_name: travelbag_app
     ports:
       - "8080:8080"  # 호스트와 컨테이너의 포트를 매핑
     environment:
