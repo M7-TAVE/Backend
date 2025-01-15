@@ -21,7 +21,7 @@ jobs:
           java-version: 17
       # Gradle Buile
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: sudo ./gradlew clean build
       # DockerHub 로그인
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -31,8 +31,8 @@ jobs:
       # DockerHub Push
       - name: Build and Push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/travelbag-app-dev .
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/travelbag-app-dev
+          sudo docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/travelbag-app-dev .
+          sudo docker push ${{ secrets.DOCKER_HUB_USERNAME }}/travelbag-app-dev
 
   deploy:
     runs-on: ubuntu-latest
