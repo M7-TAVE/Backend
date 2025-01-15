@@ -54,6 +54,17 @@ public class SecurityConfig {
                                 "/swagger-ui/index.html"  // Swagger HTML 허용
                         ).permitAll()
                         .anyRequest().authenticated()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                        .successHandler(oauth2AuthenticationSuccessHandler())
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("http://localhost:5174/login")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                 );
 
         return http.build();
@@ -65,7 +76,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5174")
+                        .allowedOrigins("http://localhost:5174", "https://m7-frontend.vercel.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
