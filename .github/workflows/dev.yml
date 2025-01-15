@@ -9,7 +9,7 @@ on:
 # 작업
 jobs:
   build:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     steps:
       # 코드 체크아웃
       - name: Checkout repository
@@ -35,7 +35,7 @@ jobs:
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/travelbag-app-dev
 
   deploy:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     needs: build
 
     steps:
@@ -50,5 +50,5 @@ jobs:
             cd /Backend
             sudo docker-compose stop
             sudo docker-compose rm -f
-            sudo docker rmi seannnnn/travelbag-app-dev:latest
+            sudo docker rmi ${{ secrets.DOCKER_HUB_USERNAME }}/travelbag-app-dev:latest
             sudo docker-compose up -d
