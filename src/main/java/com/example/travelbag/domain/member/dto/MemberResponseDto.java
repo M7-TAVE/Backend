@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class MemberResponseDto {
 
     private Long id;
-
-    private String name;
+    private String kakaoId;
+    private String email;
+    private String nickname;
 }

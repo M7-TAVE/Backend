@@ -22,7 +22,14 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(unique = true, nullable = true)
+    private String kakaoId; // 카카오 고유 ID (Unique)
+
+    @Column(nullable = true)
+    private String email; // 이메일
+
+    @Column(nullable = true)
+    private String nickname; // 닉네임
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Bag> bags = new ArrayList<>();
