@@ -58,9 +58,9 @@ dependencies {
     // Spring Session Redis 의존성
     implementation 'org.springframework.session:spring-session-data-redis'
     // Spring Data Redis 의존성
-    implementation 'org.springframework.data:spring-data-redis'
+//    implementation 'org.springframework.data:spring-data-redis'
     // Lettuce 클라이언트 의존성
-    implementation 'io.lettuce.core:lettuce-core:6.3.2'
+//    implementation 'io.lettuce.core:lettuce-core:6.3.2'
 }
 
 application {
