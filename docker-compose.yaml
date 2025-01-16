@@ -1,10 +1,5 @@
 version: '3.8'
 
-networks:
-  travelbag-network:
-    driver: bridge
-    name: travelbag-network
-
 services:
   travelbag-app:
     image: seannnnn/travelbag-app-dev # DockerHub에서 pull 받을 이미지
@@ -18,14 +13,10 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update  # Hibernate 설정
     depends_on:
       - redis
-    networks:
-      - travelbag-network
     restart: always  # 컨테이너가 종료되면 항상 재시작
 
   redis:
-    image: "redis:latest"
-    container_name: "redis"
+    image: redis:latest
+    container_name: redis
     ports:
       - "6379:6379"
-    networks:
-      - travelbag-network
