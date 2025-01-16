@@ -1,4 +1,4 @@
-package com.example.travelbag.global.config;
+package com.example.travelbag.global.swagger;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

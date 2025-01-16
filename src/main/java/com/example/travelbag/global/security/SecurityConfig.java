@@ -1,4 +1,4 @@
-package com.example.travelbag.global.config;
+package com.example.travelbag.global.security;
 
 import com.example.travelbag.domain.member.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
