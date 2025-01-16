@@ -91,7 +91,6 @@ public class FeatureService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
-        // 가방 존재 여부 확인
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
