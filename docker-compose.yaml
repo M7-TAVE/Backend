@@ -11,7 +11,8 @@ services:
       SPRING_DATASOURCE_USERNAME: ${DB_USER}  # RDS에 연결할 사용자명
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}  # RDS에 연결할 비밀번호
       SPRING_JPA_HIBERNATE_DDL_AUTO: update  # Hibernate 설정
-      REDIS_HOST: redis
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
     depends_on:
       - redis
     networks:
@@ -22,9 +23,6 @@ services:
     image: "redis:latest"
     ports:
       - "6379:6379"
-    environment:
-      SPRING_REDIS_HOST: redis
-      SPRING_REDIS_PORT: 6379
     networks:
       - travelbag-network
 
