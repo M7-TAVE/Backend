@@ -31,9 +31,6 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = true)
     private String nickname; // 닉네임
 
-    @Column(nullable = true) // name 필드 추가
-    private String name;
-
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Bag> bags = new ArrayList<>();
 }

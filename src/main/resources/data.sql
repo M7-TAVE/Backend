@@ -137,5 +137,3 @@ INSERT INTO rec_item (name, category) VALUES
                                           ('책', 'OTHER'),
                                           ('수첩', 'OTHER'),
                                           ('호신용품', 'OTHER');
-
-INSERT INTO member (name) VALUES ('회원1');

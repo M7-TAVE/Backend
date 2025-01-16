@@ -11,7 +11,6 @@ public class MemberMapper {
                 .kakaoId(memberRequestDto.getKakaoId())
                 .email(memberRequestDto.getEmail())
                 .nickname(memberRequestDto.getNickname())
-                .name(memberRequestDto.getName())
                 .build();
     }
 
@@ -21,7 +20,6 @@ public class MemberMapper {
                 .kakaoId(member.getKakaoId()) // Member 객체 사용
                 .email(member.getEmail())    // Member 객체 사용
                 .nickname(member.getNickname()) // Member 객체 사용
-                .name(member.getName())         // Member 객체 사용
                 .build();
     }
 }
