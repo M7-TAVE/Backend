@@ -3,6 +3,7 @@ version: '3.8'
 networks:
   travelbag-network:
     driver: bridge
+    name: travelbag-network
 
 services:
   travelbag-app:
