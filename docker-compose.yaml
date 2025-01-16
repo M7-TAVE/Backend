@@ -11,6 +11,9 @@ services:
       SPRING_DATASOURCE_USERNAME: ${DB_USER}  # RDS에 연결할 사용자명
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}  # RDS에 연결할 비밀번호
       SPRING_JPA_HIBERNATE_DDL_AUTO: update  # Hibernate 설정
+      REDIS_HOST: redis
+    depends_on:
+      - redis
     networks:
       - travelbag-network
     restart: always  # 컨테이너가 종료되면 항상 재시작
