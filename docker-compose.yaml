@@ -1,5 +1,8 @@
 version: '3.8'
 
+networks:
+  travelbag-network:
+
 services:
   travelbag-app:
     image: seannnnn/travelbag-app-dev # DockerHub에서 pull 받을 이미지
@@ -25,6 +28,3 @@ services:
       - "6379:6379"
     networks:
       - travelbag-network
-
-networks:
-  travelbag-network:
