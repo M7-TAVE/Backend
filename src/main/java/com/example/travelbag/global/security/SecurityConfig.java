@@ -1,4 +1,4 @@
-package com.example.travelbag.global.config;
+package com.example.travelbag.global.security;
 
 import com.example.travelbag.domain.member.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +14,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
+@EnableRedisHttpSession
 @RequiredArgsConstructor
 public class SecurityConfig {
 
