@@ -52,6 +52,15 @@ dependencies {
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+
+    // Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // Spring Session Redis 의존성
+    implementation 'org.springframework.session:spring-session-data-redis'
+    // Spring Data Redis 의존성
+    implementation 'org.springframework.data:spring-data-redis'
+    // Lettuce 클라이언트 의존성
+    implementation 'io.lettuce.core:lettuce-core'
 }
 
 application {
