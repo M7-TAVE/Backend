@@ -60,7 +60,7 @@ dependencies {
     // Spring Data Redis 의존성
     implementation 'org.springframework.data:spring-data-redis'
     // Lettuce 클라이언트 의존성
-    implementation 'io.lettuce.core:lettuce-core'
+    implementation 'io.lettuce.core:lettuce-core:6.3.2'
 }
 
 application {
