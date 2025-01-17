@@ -9,6 +9,7 @@ networks:
 services:
   travelbag-app:
     image: seannnnn/travelbag-app-dev # DockerHub에서 pull 받을 이미지
+#    build: .
     container_name: travelbag-app-dev
     ports:
       - "8080:8080"  # 호스트와 컨테이너의 포트를 매핑
@@ -23,6 +24,9 @@ services:
   redis:
     image: redis:latest
     container_name: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
     ports:
       - "6379:6379"
     networks:
