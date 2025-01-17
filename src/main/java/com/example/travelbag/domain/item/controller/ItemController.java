@@ -1,11 +1,9 @@
 package com.example.travelbag.domain.item.controller;
 
-import com.example.travelbag.domain.bag.dto.BagResponseDto;
 import com.example.travelbag.domain.item.controller.api.ItemApi;
 import com.example.travelbag.domain.item.dto.ItemRequestDto;
 import com.example.travelbag.domain.item.dto.ItemResponseDto;
 import com.example.travelbag.domain.item.service.ItemService;
-import com.example.travelbag.global.enums.ItemCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
