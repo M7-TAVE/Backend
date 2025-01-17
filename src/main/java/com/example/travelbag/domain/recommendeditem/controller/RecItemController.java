@@ -21,9 +21,9 @@ public class RecItemController implements RecItemApi {
     // 추천 준비물 조회 API
     @Override
     @GetMapping("/{categoryId}")
-    public ResponseEntity<List<RecItemResponseDto>> getRecommendedItems(@RequestParam Long memberId,
-                                                                        @RequestParam Long bagId,
-                                                                        @RequestParam Long categoryId) {
+    public ResponseEntity<List<RecItemResponseDto>> getRecommendedItems(@PathVariable Long memberId,
+                                                                        @PathVariable Long bagId,
+                                                                        @PathVariable Long categoryId) {
         List<RecItemResponseDto> recommendedItems = recItemService.getRecommendedItemsByCategory(memberId, bagId, categoryId);
         return ResponseEntity.ok(recommendedItems);
     }
