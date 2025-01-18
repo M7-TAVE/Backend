@@ -40,40 +40,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .cors().and()  // CORS 설정 추가
-                .csrf().disable()
-                .authorizeHttpRequests(authz -> authz
-                        .requestMatchers(
-                                "/",
-                                "/login",
-                                "/oauth2/**",
-                                "/api/auth/status",
-                                "/api/auth/login",
-                                "/api/**",  // API 엔드포인트 추가
-                                "/api-docs/**",  // Swagger API Docs 허용
-                                "/swagger-ui/**",   // Swagger UI 허용
-                                "/swagger-ui/index.html"  // Swagger HTML 허용
-                        ).permitAll()
-                        .anyRequest().authenticated()
-                )
-                .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customOAuth2UserService)
-                        )
-                        .successHandler(oauth2AuthenticationSuccessHandler())
-                )
-                .logout(logout -> logout
-                        .logoutSuccessUrl(base_url + "/login")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                );
-
-        return http.build();
-    }
-
-    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
@@ -85,5 +51,39 @@ public class SecurityConfig {
                         .allowCredentials(true);
             }
         };
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .cors().and()
+                .csrf().disable()
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/oauth2/**",
+                                "/api/auth/status",
+                                "/api/auth/login",
+                                "/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui/index.html"
+                        ).permitAll()
+                        .requestMatchers("/api/member/**").authenticated()  // 회원 관련 API는 인증 필요
+                        .anyRequest().authenticated()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                        .successHandler(oauth2AuthenticationSuccessHandler())
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("https://www.jionly.tech/login")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                );
+
+        return http.build();
     }
 }
