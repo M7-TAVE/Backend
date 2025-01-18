@@ -79,9 +79,10 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(base_url, "http://localhost:5174")
+                        .allowedOrigins("http://localhost:5174", "https://m7-frontend.vercel.app", "http://www.jionly.tech", "https://www.jionly.tech")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
+                        .exposedHeaders("Vary")
                         .allowCredentials(true);
             }
         };
