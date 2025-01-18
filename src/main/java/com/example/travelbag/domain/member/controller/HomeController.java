@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    private final String base_url = "http://localhost:5174/"; // https://m7-frontend.vercel.app
+    private final String base_url = "https://m7-frontend.vercel.app/";
 
     @GetMapping("/")
     public String home() {
