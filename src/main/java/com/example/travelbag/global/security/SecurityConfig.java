@@ -44,8 +44,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://www.jionly.tech", "http://localhost:5174"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        configuration.setAllowedOrigins(Arrays.asList());
+        configuration.setAllowedMethods(Arrays.asList( "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList(
                 "Authorization",
                 "Cache-Control",
@@ -90,8 +90,17 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/api/member/**/bags/**/item/**/toggle-packed").permitAll()
                         .anyRequest().authenticated()
                 )
-        // 나머지 설정 유지
-        ;
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                        .successHandler(oauth2AuthenticationSuccessHandler())
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("https://www.jionly.tech/login")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                );
 
         return http.build();
     }
