@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
+    private final String base_url = "https://m7-frontend.vercel.app/";
+
     @GetMapping("/")
     public String home() {
-        return "redirect:https://m7-frontend.vercel.app/"; // 프론트엔드 홈으로 리다이렉트
+        return "redirect:" + base_url; // 프론트엔드 홈으로 리다이렉트
     }
 }

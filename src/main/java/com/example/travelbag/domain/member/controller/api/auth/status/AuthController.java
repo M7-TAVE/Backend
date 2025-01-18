@@ -26,6 +26,7 @@ public class AuthController {
             OAuth2User user = (OAuth2User) authentication.getPrincipal();
 
             // 이메일과 닉네임 추출
+            String kakaoId = user.getAttribute("id"); // KakaoId
             String email = user.getAttribute("email");
             String nickname = user.getAttribute("nickname");
 
@@ -33,14 +34,15 @@ public class AuthController {
             email = email != null ? email : "unknown-email";
             nickname = nickname != null ? nickname : "unknown-nickname";
 
-
+            System.out.println("User KakaoId: " + kakaoId);
             System.out.println("User email: " + user.getAttribute("email"));
             System.out.println("User nickname: " + user.getAttribute("nickname"));
 
             return ResponseEntity.ok(Map.of(
                     "isAuthenticated", true,
-                    "email", user.getAttribute("email"),
-                    "nickname", user.getAttribute("nickname")
+                    "kakaoId", kakaoId,
+                    "email", email,
+                    "nickname", nickname
             ));
         } catch (Exception e) {
             System.out.println("Error in /api/auth/status: " + e.getMessage());

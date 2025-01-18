@@ -23,26 +23,26 @@ public class FeatureController implements FeatureApi {
 
     // 템플릿 아이템 목록
     @GetMapping("/template/{templateId}")
-    public ResponseEntity<TemplateItemResponseDto> getBagItem(@PathVariable("memberId") Long memberId,
+    public ResponseEntity<TemplateItemResponseDto> getBagItem(@PathVariable("memberId") String kakaoId,
                                                               @PathVariable Long bagId,
                                                               @PathVariable Long templateId) {
-        TemplateItemResponseDto response = featureService.getTemplateItem(memberId, bagId, templateId);
+        TemplateItemResponseDto response = featureService.getTemplateItem(kakaoId, bagId, templateId);
         return ResponseEntity.ok(response);
     }
 
     // 가방별 아이템 목록
     @GetMapping
-    public ResponseEntity<BagItemResponseDto> getBagItem(@PathVariable("memberId") Long memberId,
+    public ResponseEntity<BagItemResponseDto> getBagItem(@PathVariable("memberId") String kakaoId,
                                                          @PathVariable Long bagId) {
-        BagItemResponseDto bagItems = featureService.getBagItems(memberId, bagId);
+        BagItemResponseDto bagItems = featureService.getBagItems(kakaoId, bagId);
         return ResponseEntity.ok(bagItems);
     }
 
     // 추천 아이템 목록
     @GetMapping("/recommended-items")
-    public ResponseEntity<List<RecommendedItemResponseDto>> getRecommendedItems(@PathVariable("memberId") Long memberId,
+    public ResponseEntity<List<RecommendedItemResponseDto>> getRecommendedItems(@PathVariable("memberId") String kakaoId,
                                                                                 @PathVariable Long bagId) {
-        List<RecommendedItemResponseDto> response = featureService.getRecommendedItems(memberId, bagId);
+        List<RecommendedItemResponseDto> response = featureService.getRecommendedItems(kakaoId, bagId);
         return ResponseEntity.ok(response);
     }
 }

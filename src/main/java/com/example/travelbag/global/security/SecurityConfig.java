@@ -24,6 +24,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final String base_url = "https://m7-frontend.vercel.app"; // http://localhost:5174
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
@@ -33,7 +34,7 @@ public class SecurityConfig {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
                 // Vite 프론트엔드로 리다이렉트
-                response.sendRedirect("https://www.jionly.tech");
+                response.sendRedirect(base_url + "/");
             }
         };
     }
@@ -64,7 +65,7 @@ public class SecurityConfig {
                         .successHandler(oauth2AuthenticationSuccessHandler())
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("https://www.jionly.tech/login")
+                        .logoutSuccessUrl(base_url + "/login")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 );

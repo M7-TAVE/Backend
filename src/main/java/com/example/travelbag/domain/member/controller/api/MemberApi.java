@@ -21,7 +21,7 @@ public interface MemberApi {
             @ApiResponse(responseCode = "400", description = "요청 데이터가 유효하지 않음",
                     content = @Content(schema = @Schema(type = "string", example = "잘못된 요청입니다.")))
     })
-    ResponseEntity<String> createMember(
+    ResponseEntity<MemberResponseDto> createMember(
             @Parameter(description = "회원가입 요청 데이터", required = true) MemberRequestDto memberRequestDto
     );
 

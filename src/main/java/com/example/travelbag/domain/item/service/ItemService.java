@@ -29,8 +29,8 @@ public class ItemService {
 
     // 물품 생성 API
     @Transactional
-    public ItemResponseDto createItem(Long memberId, Long bagId, Long categoryId, ItemRequestDto itemRequestDto) {
-        Member member = memberRepository.findById(memberId)
+    public ItemResponseDto createItem(String kakaoId, Long bagId, Long categoryId, ItemRequestDto itemRequestDto) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)
@@ -53,8 +53,8 @@ public class ItemService {
 
     // 카테고리별 물품 조회 API
     @Transactional(readOnly = true)
-    public List<ItemResponseDto> getItems(Long memberId, Long bagId, Long categoryId) {
-        Member member = memberRepository.findById(memberId)
+    public List<ItemResponseDto> getItems(String kakaoId, Long bagId, Long categoryId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)
@@ -75,8 +75,8 @@ public class ItemService {
 
     // 물품 이름 수정 API
     @Transactional
-    public ItemResponseDto updateItemName(Long memberId, Long bagId, Long itemId, ItemRequestDto itemRequestDto) {
-        Member member = memberRepository.findById(memberId)
+    public ItemResponseDto updateItemName(String kakaoId, Long bagId, Long itemId, ItemRequestDto itemRequestDto) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)
@@ -95,8 +95,8 @@ public class ItemService {
 
     // 물품 삭제 API
     @Transactional
-    public void deleteItem(Long memberId, Long bagId, Long itemId) {
-        Member member = memberRepository.findById(memberId)
+    public void deleteItem(String kakaoId, Long bagId, Long itemId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)
@@ -114,8 +114,8 @@ public class ItemService {
 
     // is_packed 토글 API
     @Transactional
-    public ItemResponseDto togglePacked(Long memberId, Long bagId, Long itemId) {
-        Member member = memberRepository.findById(memberId)
+    public ItemResponseDto togglePacked(String kakaoId, Long bagId, Long itemId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)
