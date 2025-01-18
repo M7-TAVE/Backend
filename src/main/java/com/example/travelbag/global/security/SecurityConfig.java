@@ -4,6 +4,7 @@ import com.example.travelbag.domain.member.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -55,6 +56,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",   // Swagger UI 허용
                                 "/swagger-ui/index.html"  // Swagger HTML 허용
                         ).permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/api/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
