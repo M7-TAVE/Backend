@@ -24,7 +24,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final String base_url = "https://m7-frontend.vercel.app"; // http://localhost:5174
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
@@ -34,21 +33,7 @@ public class SecurityConfig {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
                 // Vite 프론트엔드로 리다이렉트
-                response.sendRedirect(base_url + "/");
-            }
-        };
-    }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins(base_url)
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
+                response.sendRedirect("https://www.jionly.tech");
             }
         };
     }
@@ -56,7 +41,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors().and()
+                .cors().and()  // CORS 설정 추가
                 .csrf().disable()
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(
@@ -65,11 +50,11 @@ public class SecurityConfig {
                                 "/oauth2/**",
                                 "/api/auth/status",
                                 "/api/auth/login",
-                                "/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui/index.html"
+                                "/api/**",  // API 엔드포인트 추가
+                                "/api-docs/**",  // Swagger API Docs 허용
+                                "/swagger-ui/**",   // Swagger UI 허용
+                                "/swagger-ui/index.html"  // Swagger HTML 허용
                         ).permitAll()
-                        .requestMatchers("/api/member/**").authenticated()  // 회원 관련 API는 인증 필요
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -85,5 +70,19 @@ public class SecurityConfig {
                 );
 
         return http.build();
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("https://www.jionly.tech")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
+            }
+        };
     }
 }
