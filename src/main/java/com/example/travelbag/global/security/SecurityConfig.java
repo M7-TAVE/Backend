@@ -1,4 +1,4 @@
-package com.example.travelbag.global.config;
+package com.example.travelbag.global.security;
 
 import com.example.travelbag.domain.member.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,14 +14,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
+@EnableRedisHttpSession
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final String base_url = "https://m7-frontend.vercel.app"; // http://localhost:5174
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
@@ -31,7 +34,7 @@ public class SecurityConfig {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
                 // Vite 프론트엔드로 리다이렉트
-                response.sendRedirect("http://localhost:5174/");
+                response.sendRedirect(base_url + "/");
             }
         };
     }
@@ -48,7 +51,10 @@ public class SecurityConfig {
                                 "/oauth2/**",
                                 "/api/auth/status",
                                 "/api/auth/login",
-                                "/api/**"  // API 엔드포인트 추가
+                                "/api/**",  // API 엔드포인트 추가
+                                "/api-docs/**",  // Swagger API Docs 허용
+                                "/swagger-ui/**",   // Swagger UI 허용
+                                "/swagger-ui/index.html"  // Swagger HTML 허용
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -59,7 +65,7 @@ public class SecurityConfig {
                         .successHandler(oauth2AuthenticationSuccessHandler())
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("http://localhost:5174/login")
+                        .logoutSuccessUrl(base_url + "/login")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 );
@@ -73,7 +79,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5174")
+                        .allowedOrigins(base_url)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);

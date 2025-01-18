@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/attraction")
+@RequestMapping("/api/attraction")
 public class AttractionController implements AttractionApi {
 
     @Autowired
