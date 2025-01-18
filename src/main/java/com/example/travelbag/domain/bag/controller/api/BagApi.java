@@ -25,7 +25,7 @@ public interface BagApi {
                     content = @Content(schema = @Schema(type = "string", example = "회원 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<BagResponseDto> createTemporaryBag(
-            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "회원 ID", required = true) String kakaoId,
             @Parameter(description = "템플릿 ID", required = true) Long templateId,
             @Parameter(description = "가방 요청 정보", required = true) BagRequestDto bagRequestDto
     );
@@ -38,7 +38,7 @@ public interface BagApi {
                     content = @Content(schema = @Schema(type = "string", example = "회원 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<List<BagResponseDto>> getBags(
-            @Parameter(description = "회원 ID", required = true) Long memberId
+            @Parameter(description = "회원 ID", required = true) String kakaoId
     );
 
     @Operation(summary = "가방 상세 조회(챙길것들 화면)", description = "특정 가방을 조회합니다.")
@@ -49,7 +49,7 @@ public interface BagApi {
                     content = @Content(schema = @Schema(type = "string", example = "가방 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<BagResponseDto> getBag(
-            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "회원 ID", required = true) String kakaoId,
             @Parameter(description = "가방 ID", required = true) Long bagId
     );
 
@@ -61,7 +61,7 @@ public interface BagApi {
                     content = @Content(schema = @Schema(type = "string", example = "가방 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<BagResponseDto> updateBagName(
-            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "회원 ID", required = true) String kakaoId,
             @Parameter(description = "가방 ID", required = true) Long bagId,
             @Parameter(description = "수정할 가방 정보", required = true) BagRequestDto bagRequestDto
     );
@@ -74,7 +74,7 @@ public interface BagApi {
                     content = @Content(schema = @Schema(type = "string", example = "가방 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<String> deleteBag(
-            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "회원 ID", required = true) String kakaoId,
             @Parameter(description = "가방 ID", required = true) Long bagId
     );
 
@@ -86,7 +86,7 @@ public interface BagApi {
                     content = @Content(schema = @Schema(type = "string", example = "가방 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<BagResponseDto> toggleTemporary(
-            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "회원 ID", required = true) String kakaoId,
             @Parameter(description = "가방 ID", required = true) Long bagId
     );
 }

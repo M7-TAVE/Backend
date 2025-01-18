@@ -16,9 +16,9 @@ public class MemberController implements MemberApi {
 
     @PostMapping("/api/member")
     @Override
-    public ResponseEntity<String> createMember(@RequestBody MemberRequestDto memberRequestDto) {
+    public ResponseEntity<MemberResponseDto> createMember(@RequestBody MemberRequestDto memberRequestDto) {
         MemberResponseDto responseDto = memberService.createMember(memberRequestDto);
-        return ResponseEntity.ok(responseDto.getNickname() + "님이 회원가입 되었습니다.");
+        return ResponseEntity.ok(responseDto);
     }
 
     @GetMapping("/api/member/{memberId}")

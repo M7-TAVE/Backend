@@ -25,7 +25,7 @@ public interface ItemApi {
                     content = @Content(schema = @Schema(type = "string", example = "가방 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<ItemResponseDto> createItem(
-            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "회원 ID", required = true) String kakaoId,
             @Parameter(description = "가방 ID", required = true) Long bagId,
             @Parameter(description = "카테고리 ID", required = true) Long itemCategoryId,
             @Parameter(description = "물품 정보", required = true) ItemRequestDto itemRequestDto
@@ -39,7 +39,7 @@ public interface ItemApi {
                     content = @Content(schema = @Schema(type = "string", example = "가방 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<List<ItemResponseDto>> getItems(
-            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "회원 ID", required = true) String kakaoId,
             @Parameter(description = "가방 ID", required = true) Long bagId,
             @Parameter(description = "카테고리 ID", required = true) Long itemCategoryId
     );
@@ -52,7 +52,7 @@ public interface ItemApi {
                     content = @Content(schema = @Schema(type = "string", example = "물품 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<ItemResponseDto> updateItemName(
-            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "회원 ID", required = true) String kakaoId,
             @Parameter(description = "가방 ID", required = true) Long bagId,
             @Parameter(description = "물품 ID", required = true) Long itemId,
             @Parameter(description = "수정할 물품 정보", required = true) ItemRequestDto itemRequestDto
@@ -66,7 +66,7 @@ public interface ItemApi {
                     content = @Content(schema = @Schema(type = "string", example = "물품 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<String> deleteItem(
-            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "회원 ID", required = true) String kakaoId,
             @Parameter(description = "가방 ID", required = true) Long bagId,
             @Parameter(description = "물품 ID", required = true) Long itemId
     );
@@ -79,7 +79,7 @@ public interface ItemApi {
                     content = @Content(schema = @Schema(type = "string", example = "물품 ID를 찾을 수 없습니다.")))
     })
     ResponseEntity<ItemResponseDto> togglePacked(
-            @Parameter(description = "회원 ID", required = true) Long memberId,
+            @Parameter(description = "회원 ID", required = true) String kakaoId,
             @Parameter(description = "가방 ID", required = true) Long bagId,
             @Parameter(description = "물품 ID", required = true) Long itemId
     );

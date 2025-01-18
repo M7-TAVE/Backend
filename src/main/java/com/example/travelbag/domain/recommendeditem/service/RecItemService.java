@@ -34,14 +34,14 @@ public class RecItemService {
 
     // 추천 준비물 카테고리 별로 조회 API
     @Transactional(readOnly = true)
-    public List<RecItemResponseDto> getRecommendedItemsByCategory(Long memberId, Long bagId, Long categoryId) {
-        Member member = memberRepository.findById(memberId)
+    public List<RecItemResponseDto> getRecommendedItemsByCategory(String kakaoId, Long bagId, Long categoryId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        if (!bag.getMember().getId().equals(memberId)) {
+        if (!bag.getMember().getId().equals(member.getId())) {
             throw new CustomException(ErrorCode.NOT_BAG_OWNER);
         }
 
@@ -54,14 +54,14 @@ public class RecItemService {
 
     // 추천 준비물에서 해당 가방에 물품 추가
     @Transactional
-    public ItemResponseDto addRecItemToBag(Long memberId, Long bagId, Long categoryId, RecItemRequestDto recItemRequest) {
-        Member member = memberRepository.findById(memberId)
+    public ItemResponseDto addRecItemToBag(String kakaoId, Long bagId, Long categoryId, RecItemRequestDto recItemRequest) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        if (!bag.getMember().getId().equals(memberId)) {
+        if (!bag.getMember().getId().equals(member.getId())) {
             throw new CustomException(ErrorCode.NOT_BAG_OWNER);
         }
 
