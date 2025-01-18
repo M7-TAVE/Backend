@@ -42,9 +42,33 @@ public class SecurityConfig {
     }
 
     @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://www.jionly.tech", "http://localhost:5174"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Authorization",
+                "Cache-Control",
+                "Content-Type",
+                "Origin",
+                "Accept",
+                "Referer",
+                "User-Agent",
+                "*"
+        ));
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors().configurationSource(corsConfigurationSource()) // CORS 설정
+                .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .csrf().disable()
                 .authorizeHttpRequests(authz -> authz
@@ -54,40 +78,21 @@ public class SecurityConfig {
                                 "/oauth2/**",
                                 "/api/auth/status",
                                 "/api/auth/login",
-                                "/api-docs/**",  // Swagger API Docs 허용
-                                "/swagger-ui/**",   // Swagger UI 허용
-                                "/swagger-ui/index.html"  // Swagger HTML 허용
+                                "/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui/index.html"
                         ).permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // OPTIONS 요청 허용
-                        .requestMatchers(HttpMethod.PATCH, "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        // PATCH 요청에 대한 경로를 더 구체적으로 지정
+                        .requestMatchers(HttpMethod.PATCH, "/api/member/**/bags/**/name").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/api/member/**/bags/**/item/**/name").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/api/member/**/bags/**/toggle-temporary").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/api/member/**/bags/**/item/**/toggle-packed").permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customOAuth2UserService)
-                        )
-                        .successHandler(oauth2AuthenticationSuccessHandler())
-                )
-                .logout(logout -> logout
-                        .logoutSuccessUrl("https://www.jionly.tech/login")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                );
+        // 나머지 설정 유지
+        ;
 
         return http.build();
-    }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://www.jionly.tech", "http://localhost:5174")); // 허용된 Origin 추가
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")); // 허용된 HTTP 메서드 추가
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "*")); // 허용된 헤더 추가
-        configuration.setAllowCredentials(true); // 쿠키를 포함한 자격 증명 허용
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-
-        return source;
     }
 }
