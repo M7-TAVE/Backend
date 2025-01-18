@@ -54,6 +54,7 @@ public class SecurityConfig {
                 "Accept",
                 "Referer",
                 "User-Agent",
+                "Access-Control-Allow-Origin",
                 "*"
         ));
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
