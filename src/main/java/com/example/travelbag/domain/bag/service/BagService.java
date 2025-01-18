@@ -29,8 +29,8 @@ public class BagService {
 
     // 가방 생성 API
     @Transactional
-    public BagResponseDto createTemporaryBag(Long memberId, Long templateId, BagRequestDto bagRequestDto) {
-        Member member = memberRepository.findById(memberId)
+    public BagResponseDto createTemporaryBag(String kakaoId, Long templateId, BagRequestDto bagRequestDto) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Template template = Template.fromId(templateId)
@@ -86,11 +86,11 @@ public class BagService {
 
     // 가방 전체 조회 API
     @Transactional(readOnly = true)
-    public List<BagResponseDto> getBags(Long memberId) {
-        Member member = memberRepository.findById(memberId)
+    public List<BagResponseDto> getBags(String kakaoId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
-        List<Bag> bags = bagRepository.findAllByMemberId(memberId);
+        List<Bag> bags = bagRepository.findAllByMemberId(member.getId());
 
         return bags.stream()
                 .map(bag -> BagResponseDto.builder()
@@ -104,11 +104,14 @@ public class BagService {
 
     // 가방 조회 API
     @Transactional(readOnly = true)
-    public BagResponseDto getBag(Long bagId, Long memberId) {
+    public BagResponseDto getBag(Long bagId, String kakaoId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        if (!bag.getMember().getId().equals(memberId)) {
+        if (!bag.getMember().getId().equals(member.getId())) {
             throw new CustomException(ErrorCode.NOT_BAG_OWNER);
         }
 
@@ -122,11 +125,14 @@ public class BagService {
 
     // 가방 이름 수정 API
     @Transactional
-    public BagResponseDto updateBagName(Long memberId, Long bagId, BagRequestDto bagRequestDto) {
+    public BagResponseDto updateBagName(String kakaoId, Long bagId, BagRequestDto bagRequestDto) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        if (!bag.getMember().getId().equals(memberId)) {
+        if (!bag.getMember().getId().equals(member.getId())) {
             throw new CustomException(ErrorCode.NOT_BAG_OWNER);
         }
 
@@ -142,11 +148,14 @@ public class BagService {
 
     // 가방 삭제 API
     @Transactional
-    public void deleteBag(Long memberId, Long bagId) {
+    public void deleteBag(String kakaoId, Long bagId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
-        if (!bag.getMember().getId().equals(memberId)) {
+        if (!bag.getMember().getId().equals(member.getId())) {
             throw new CustomException(ErrorCode.NOT_BAG_OWNER);
         }
 
@@ -155,8 +164,8 @@ public class BagService {
 
     // is_temporary 토글 API
     @Transactional
-    public BagResponseDto toggleTemporary(Long memberId, Long bagId) {
-        Member member = memberRepository.findById(memberId)
+    public BagResponseDto toggleTemporary(String kakaoId, Long bagId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)

@@ -21,21 +21,21 @@ public class RecItemController implements RecItemApi {
     // 추천 준비물 조회 API
     @Override
     @GetMapping("/{categoryId}")
-    public ResponseEntity<List<RecItemResponseDto>> getRecommendedItems(@PathVariable Long memberId,
+    public ResponseEntity<List<RecItemResponseDto>> getRecommendedItems(@PathVariable("memberId") String kakaoId,
                                                                         @PathVariable Long bagId,
                                                                         @PathVariable Long categoryId) {
-        List<RecItemResponseDto> recommendedItems = recItemService.getRecommendedItemsByCategory(memberId, bagId, categoryId);
+        List<RecItemResponseDto> recommendedItems = recItemService.getRecommendedItemsByCategory(kakaoId, bagId, categoryId);
         return ResponseEntity.ok(recommendedItems);
     }
 
     // 추천 준비물 추가 API
     @Override
     @PostMapping("/{categoryId}")
-    public ResponseEntity<ItemResponseDto> addRecItemToBag(@PathVariable Long memberId,
+    public ResponseEntity<ItemResponseDto> addRecItemToBag(@PathVariable("memberId") String kakaoId,
                                                            @PathVariable Long bagId,
                                                            @PathVariable Long categoryId,
                                                            @RequestBody RecItemRequestDto recItemRequest) {
-        ItemResponseDto response = recItemService.addRecItemToBag(memberId, bagId, categoryId, recItemRequest);
+        ItemResponseDto response = recItemService.addRecItemToBag(kakaoId, bagId, categoryId, recItemRequest);
         return ResponseEntity.ok(response);
     }
 }

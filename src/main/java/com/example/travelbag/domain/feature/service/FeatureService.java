@@ -38,8 +38,8 @@ public class FeatureService {
 
     // 템플릿별 아이템 목록
     @Transactional(readOnly = true)
-    public TemplateItemResponseDto getTemplateItem(Long memberId, Long bagId, Long templateId) {
-        Member member = memberRepository.findById(memberId)
+    public TemplateItemResponseDto getTemplateItem(String kakaoId, Long bagId, Long templateId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)
@@ -87,11 +87,10 @@ public class FeatureService {
 
     // 가방별 아이템 목록
     @Transactional(readOnly = true)
-    public BagItemResponseDto getBagItems(Long memberId, Long bagId) {
-        Member member = memberRepository.findById(memberId)
+    public BagItemResponseDto getBagItems(String kakaoId, Long bagId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
-        // 가방 존재 여부 확인
         Bag bag = bagRepository.findById(bagId)
                 .orElseThrow(() -> new CustomException(ErrorCode.BAG_NOT_FOUND));
 
@@ -133,8 +132,8 @@ public class FeatureService {
 
     // 추천 아이템 목록
     @Transactional(readOnly = true)
-    public List<RecommendedItemResponseDto> getRecommendedItems(Long memberId, Long bagId) {
-        Member member = memberRepository.findById(memberId)
+    public List<RecommendedItemResponseDto> getRecommendedItems(String kakaoId, Long bagId) {
+        Member member = memberRepository.findByKakaoId(kakaoId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         Bag bag = bagRepository.findById(bagId)

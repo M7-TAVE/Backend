@@ -34,7 +34,7 @@ public interface FeatureApi {
             @Parameter(name = "bagId", description = "가방 ID", required = true),
             @Parameter(name = "templateId", description = "템플릿 ID", required = true)
     })
-    ResponseEntity<TemplateItemResponseDto> getBagItem(@PathVariable("memberId") Long memberId,
+    ResponseEntity<TemplateItemResponseDto> getBagItem(@PathVariable("memberId") String kakaoId,
                                                        @PathVariable Long bagId,
                                                        @PathVariable Long templateId);
 
@@ -52,7 +52,7 @@ public interface FeatureApi {
             @Parameter(name = "memberId", description = "회원 ID", required = true),
             @Parameter(name = "bagId", description = "가방 ID", required = true)
     })
-    ResponseEntity<BagItemResponseDto> getBagItem(@PathVariable("memberId") Long memberId,
+    ResponseEntity<BagItemResponseDto> getBagItem(@PathVariable("memberId") String kakaoId,
                                                   @PathVariable Long bagId);
 
     @Operation(summary = "추천 아이템 목록 조회", description = "사용자를 위한 추천 아이템 목록을 조회합니다.")
@@ -69,6 +69,6 @@ public interface FeatureApi {
             @Parameter(name = "memberId", description = "회원 ID", required = true),
             @Parameter(name = "bagId", description = "가방 ID", required = true)
     })
-    ResponseEntity<List<RecommendedItemResponseDto>> getRecommendedItems(@PathVariable("memberId") Long memberId,
+    ResponseEntity<List<RecommendedItemResponseDto>> getRecommendedItems(@PathVariable("memberId") String kakaoId,
                                                                          @PathVariable Long bagId);
 }
