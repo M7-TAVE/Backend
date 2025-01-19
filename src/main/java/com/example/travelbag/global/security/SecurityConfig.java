@@ -4,9 +4,9 @@ import com.example.travelbag.domain.member.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import jakarta.servlet.ServletException;
@@ -19,7 +19,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -29,7 +28,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
-    private final String domain = "https://www.jionly.tech";
+    private final String front_url = "https://www.jionly.tech";
 
     @Bean
     public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
@@ -38,7 +37,7 @@ public class SecurityConfig {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
                 // Vite 프론트엔드로 리다이렉트
-                response.sendRedirect(domain);
+                response.sendRedirect(front_url);
             }
         };
     }
@@ -46,7 +45,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(domain));
+        configuration.setAllowedOrigins(List.of(front_url));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(List.of(
                 "Authorization",
@@ -61,7 +60,6 @@ public class SecurityConfig {
         ));
         configuration.setExposedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -71,6 +69,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .csrf().disable()
@@ -94,7 +93,7 @@ public class SecurityConfig {
                         .successHandler(oauth2AuthenticationSuccessHandler())
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl(domain + "/login")
+                        .logoutSuccessUrl(front_url + "/login")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 );
