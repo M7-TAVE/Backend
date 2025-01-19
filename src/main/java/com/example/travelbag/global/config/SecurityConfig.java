@@ -1,4 +1,4 @@
-package com.example.travelbag.global.security;
+package com.example.travelbag.global.config;
 
 import com.example.travelbag.domain.member.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
@@ -83,7 +83,8 @@ public class SecurityConfig {
                                 "/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui/index.html"
-                        ).permitAll()
+                        )
+                        .permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2

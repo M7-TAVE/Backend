@@ -1,4 +1,4 @@
-package com.example.travelbag.global.web;
+package com.example.travelbag.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

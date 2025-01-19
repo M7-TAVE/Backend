@@ -1,4 +1,4 @@
-package com.example.travelbag.global.redis;
+package com.example.travelbag.global.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
