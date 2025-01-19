@@ -17,7 +17,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .components(new Components())
                 .info(apiInfo())
-                .servers(List.of(new Server().url("https://www.jionly.tech"))); // 기본 API URL 설정
+                .servers(List.of(new Server().url("https://api.jionly.tech"))); // 기본 API URL 설정
     }
 
     public Info apiInfo() {
