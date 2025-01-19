@@ -48,7 +48,7 @@ public class RecItemService {
         ItemCategory category = ItemCategory.fromId(categoryId)
                 .orElseThrow(() -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND));
 
-        List<RecItem> recItems = recItemRepository.findAllByCategory(category);
+        List<RecItem> recItems = recItemRepository.findDistinctByCategory(category);
         return RecItemMapper.toRecItemDtoList(recItems);
     }
 
