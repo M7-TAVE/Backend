@@ -38,7 +38,7 @@ public class SecurityConfig {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
                 // Vite 프론트엔드로 리다이렉트
-                response.sendRedirect(domain + "/");
+                response.sendRedirect(domain);
             }
         };
     }
