@@ -37,7 +37,7 @@ public class SecurityConfig {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
                 // Vite 프론트엔드로 리다이렉트
-                response.sendRedirect(base_url);
+                response.sendRedirect(base_url + "/");
             }
         };
     }
@@ -84,12 +84,6 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui/index.html"
                         ).permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        // PATCH 요청에 대한 경로를 더 구체적으로 지정
-                        .requestMatchers(HttpMethod.PATCH, "/api/member/**/bags/**/name").permitAll()
-                        .requestMatchers(HttpMethod.PATCH, "/api/member/**/bags/**/item/**/name").permitAll()
-                        .requestMatchers(HttpMethod.PATCH, "/api/member/**/bags/**/toggle-temporary").permitAll()
-                        .requestMatchers(HttpMethod.PATCH, "/api/member/**/bags/**/item/**/toggle-packed").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
