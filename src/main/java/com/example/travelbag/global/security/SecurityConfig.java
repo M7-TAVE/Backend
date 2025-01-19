@@ -29,7 +29,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
-    private final String domain = "https://api.jionly.tech";
+    private final String domain = "https://www.jionly.tech";
 
     @Bean
     public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
