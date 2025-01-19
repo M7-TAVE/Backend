@@ -20,6 +20,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +29,7 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
-    private final String base_url = "https://jiwon.d3kcu00ykarmab.amplifyapp.com";
+    private final String domain = "https://api.jionly.tech";
 
     @Bean
     public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
@@ -37,7 +38,7 @@ public class SecurityConfig {
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
                 // Vite 프론트엔드로 리다이렉트
-                response.sendRedirect(base_url + "/");
+                response.sendRedirect(domain + "/");
             }
         };
     }
@@ -45,9 +46,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(base_url, "https://www.jionly.tech", "http://localhost:5174"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList(
+        configuration.setAllowedOrigins(List.of(domain));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of(
                 "Authorization",
                 "Cache-Control",
                 "Content-Type",
@@ -58,7 +59,7 @@ public class SecurityConfig {
                 "Access-Control-Allow-Origin",
                 "*"
         ));
-        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setExposedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
@@ -93,7 +94,7 @@ public class SecurityConfig {
                         .successHandler(oauth2AuthenticationSuccessHandler())
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl(base_url + "/login")
+                        .logoutSuccessUrl(domain + "/login")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 );
