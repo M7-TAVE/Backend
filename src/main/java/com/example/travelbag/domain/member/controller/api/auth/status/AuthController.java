@@ -3,9 +3,8 @@ package com.example.travelbag.domain.member.controller.api.auth.status;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 @RestController
@@ -46,6 +45,33 @@ public class AuthController {
             ));
         } catch (Exception e) {
             System.out.println("Error in /api/auth/status: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of(
+                    "error", e.getMessage()
+            ));
+        }
+    }
+
+    // 새로운 로그아웃 API
+    @PostMapping("/logout")
+    public ResponseEntity<Map<String, Object>> logout(@RequestHeader("Authorization") String accessToken) {
+        String kakaoLogoutUrl = "https://kapi.kakao.com/v1/user/logout";
+
+        try {
+            // 카카오 로그아웃 API 호출
+            RestTemplate restTemplate = new RestTemplate();
+            var headers = new org.springframework.http.HttpHeaders();
+            headers.set("Authorization", "Bearer " + accessToken);
+            var request = new org.springframework.http.HttpEntity<>(headers);
+
+            restTemplate.postForEntity(kakaoLogoutUrl, request, String.class);
+
+            // 로그아웃 성공 응답
+            return ResponseEntity.ok(Map.of(
+                    "message", "Successfully logged out"
+            ));
+        } catch (Exception e) {
+            System.out.println("Error in /api/auth/logout: " + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.status(500).body(Map.of(
                     "error", e.getMessage()
