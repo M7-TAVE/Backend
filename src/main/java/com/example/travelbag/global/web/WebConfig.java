@@ -19,13 +19,4 @@ public class WebConfig implements WebMvcConfigurer {
         converter.setDefaultCharset(StandardCharsets.UTF_8);
         return converter;
     }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // 모든 경로에 대해 CORS 허용
-                .allowedOrigins("http://www.jionly.tech", "https://www.jionly.tech") // 허용할 출처
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS") // 허용할 HTTP 메서드
-                .allowedHeaders("*") // 모든 헤더 허용
-                .allowCredentials(true); // 쿠키, 인증 정보 허용
-    }
 }
