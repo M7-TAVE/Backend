@@ -22,6 +22,13 @@ public class LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
+    private final Map<String, Double> default_exchange_rate = Map.of(
+            "JPY(100)", 924.00,
+            "USD", 1450.00,
+            "VND(100)", 5.70,
+            "THB", 42.00
+    );
+
     public List<LocationResponseDTO> getLocations() {
         return locationRepository.findAllByOrderByNameAsc()
                 .stream()
@@ -55,7 +62,7 @@ public class LocationService {
         do {
             try {
                 if (request_count > 15) {
-                    exchange_rate = 1000.00;
+                    exchange_rate = default_exchange_rate.get(currency_unit);
                     break;
                 }
                 request_count++;
