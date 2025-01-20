@@ -41,6 +41,7 @@ public class ExchangeRateUtils {
 
             // Request 초기 세팅
             connection.setRequestMethod("GET");
+            connection.setInstanceFollowRedirects(false);  // 리다이렉션 자동 처리 비활성화
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
 
