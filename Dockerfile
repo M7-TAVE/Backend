@@ -1,7 +1,7 @@
 FROM openjdk:17
 
 # 환율 api 인증서 설정
-ARG CERT_FILE=/home/ubuntu/certs/_.koreaexim.go.kr.crt
+ARG CERT_FILE=./certs/_.koreaexim.go.kr.crt
 USER root
 COPY ${CERT_FILE} /certs/${CERT_FILE}
 RUN keytool -import -noprompt -trustcacerts -alias koreaexim -file /certs/${CERT_FILE} -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit
