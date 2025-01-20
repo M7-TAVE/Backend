@@ -66,7 +66,11 @@ public class AuthController {
     @GetMapping("/token")
     public ResponseEntity<Map<String, String>> getAccessToken(Authentication authentication,
                                                               @Autowired OAuth2AuthorizedClientService authorizedClientService) {
+
+        System.out.println("Access Token Endpoint Called");
+
         if (authentication == null) {
+            System.out.println("Authentication object is null.");
             return ResponseEntity.status(401).body(Map.of("error", "User not authenticated"));
         }
 
