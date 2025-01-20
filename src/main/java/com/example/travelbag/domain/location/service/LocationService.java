@@ -54,8 +54,8 @@ public class LocationService {
 
         do {
             try {
-                if (request_count > 30) {
-                    exchange_rate = 1200.00;
+                if (request_count > 15) {
+                    exchange_rate = 1000.00;
                     break;
                 }
                 request_count++;
