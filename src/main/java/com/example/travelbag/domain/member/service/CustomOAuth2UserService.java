@@ -23,6 +23,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
+        String accessToken = userRequest.getAccessToken().getTokenValue();
+        System.out.println("Access Token !?!?!?: " + accessToken); // 디버깅용 로그
+
         System.out.println("OAuth2User attributes: " + oAuth2User.getAttributes());  // 디버깅용 로그
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
