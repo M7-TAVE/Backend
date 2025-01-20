@@ -78,6 +78,7 @@ public class SecurityConfig {
                                 "/",
                                 "/login",
                                 "/oauth2/**",
+                                "/api/location/**",
                                 "/api/auth/status",
                                 "/api/auth/login",
                                 "/api/auth/logout",
