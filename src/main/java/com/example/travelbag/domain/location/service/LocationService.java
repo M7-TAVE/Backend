@@ -62,7 +62,7 @@ public class LocationService {
                 exchange_rate = ExchangeRateUtils.fetchExchangeRate(searchDate, currency_unit);
             } catch (Exception e) {
                 // 예외 발생 시 하루 전 날짜로 변경
-                System.out.println(e.getMessage());
+                System.out.println("환율 조회 중 Error 발생: " + e.getMessage());
                 searchDate = ExchangeRateUtils.getPreviousDate(searchDate);
             }
         } while (exchange_rate == 0);
