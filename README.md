@@ -2,9 +2,6 @@
 
 ## 🖥️ Project Introduction
 2024 M7 team 여행가방 프로젝트 입니다.
-<br>
-![image](https://github.com/user-attachments/assets/724cb45d-576a-456b-98dc-1786be8b7599)
-<br>
 
 ## 🕰️ Development Period
 
