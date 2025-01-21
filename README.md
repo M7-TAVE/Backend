@@ -3,7 +3,7 @@
 ## 🧑🏻‍💻️ Team member
 | 장경준                       | 김서연                       | 임동규                       |
 |:------------------------------:|:------------------------------:|:------------------------------:|
-|  <img src="https://github.com/user-attachments/assets/699e1e49-d04d-4fdc-9e29-5310b41b7ad1" width="200" height="200"> | <img src="https://github.com/user-attachments/assets/c58c123a-47f9-4b94-bdd4-5be70ac5eb6f" width="200" height="200">| <img src="https://github.com/user-attachments/assets/57c1b666-5cab-4016-9173-3e140458120b" width="200" height="200">|
+|  <img src="https://github.com/user-attachments/assets/d92de067-3d48-4e72-9eba-98e8ac012247" width="200" height="200"> | <img src="https://github.com/user-attachments/assets/c58c123a-47f9-4b94-bdd4-5be70ac5eb6f" width="200" height="200">| <img src="https://github.com/user-attachments/assets/57c1b666-5cab-4016-9173-3e140458120b" width="200" height="200">|
 | [@GyeongJoon](https://github.com/GyeongJoon) | [@seoyeon83](https://github.com/seoyeon83) | [@LAICME](https://github.com/LAICME) |
 <br>
 
