@@ -6,21 +6,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Map;
-
-
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
+    private final OAuth2AuthorizedClientService authorizedClientService;
+
+    // 생성자 주입
+    public AuthController(OAuth2AuthorizedClientService authorizedClientService) {
+        this.authorizedClientService = authorizedClientService;
+    }
 
     @GetMapping("/status")
     public ResponseEntity<Map<String, Object>> getAuthStatus(Authentication authentication) {
@@ -66,27 +72,42 @@ public class AuthController {
     @GetMapping("/token")
     public ResponseEntity<Map<String, String>> getAccessToken(Authentication authentication,
                                                               @Autowired OAuth2AuthorizedClientService authorizedClientService) {
-
-        System.out.println("Access Token Endpoint Called");
+        System.out.println("Access Token API 호출됨 아주 나이스");
 
         if (authentication == null) {
-            System.out.println("Authentication object is null.");
+            System.out.println("Authentication 객체가 null입니다.");
             return ResponseEntity.status(401).body(Map.of("error", "User not authenticated"));
         }
 
-        OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-        String clientRegistrationId = oauthToken.getAuthorizedClientRegistrationId();
+        try {
+            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+            String clientRegistrationId = oauthToken.getAuthorizedClientRegistrationId();
+            System.out.println("Client Registration ID: " + clientRegistrationId);
 
-        OAuth2AuthorizedClient authorizedClient =
-                authorizedClientService.loadAuthorizedClient(clientRegistrationId, oauthToken.getName());
+            OAuth2AuthorizedClient authorizedClient =
+                    authorizedClientService.loadAuthorizedClient(clientRegistrationId, oauthToken.getName());
 
-        if (authorizedClient == null || authorizedClient.getAccessToken() == null) {
-            return ResponseEntity.status(500).body(Map.of("error", "Access token not available"));
+            if (authorizedClient == null) {
+                System.out.println("Authorized Client가 null입니다.");
+                return ResponseEntity.status(500).body(Map.of("error", "Authorized client not found"));
+            }
+
+            if (authorizedClient.getAccessToken() == null) {
+                System.out.println("Access Token이 null입니다.");
+                return ResponseEntity.status(500).body(Map.of("error", "Access token not available"));
+            }
+
+            String kakaoAccessToken = authorizedClient.getAccessToken().getTokenValue();
+            System.out.println("Access Token: " + kakaoAccessToken);
+
+            return ResponseEntity.ok(Map.of("accessToken", kakaoAccessToken));
+        } catch (Exception e) {
+            System.out.println("예외 발생: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("error", "Unexpected error occurred: " + e.getMessage()));
         }
-
-        String kakaoAccessToken = authorizedClient.getAccessToken().getTokenValue();
-        return ResponseEntity.ok(Map.of("accessToken", kakaoAccessToken));
     }
+
 
     @PostMapping("/logout")
     public ResponseEntity<Map<String, Object>> logout(@RequestHeader("Authorization") String authorizationHeader) {
@@ -139,5 +160,4 @@ public class AuthController {
             ));
         }
     }
-
 }
