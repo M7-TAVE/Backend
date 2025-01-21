@@ -40,6 +40,7 @@
 
 ## 📰 API Specification
 #### [🔗Swagger 확인하기](https://m7-tave.github.io/travelbag-swagger-ui/)
+![image](https://github.com/user-attachments/assets/422e2d02-17b7-46f6-b765-a230f0a35af8)
 <br>
 
 ## 📂 Commit convention-
