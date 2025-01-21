@@ -17,6 +17,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,13 +33,8 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
-        return new AuthenticationSuccessHandler() {
-            @Override
-            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                                Authentication authentication) throws IOException, ServletException {
-                // Vite 프론트엔드로 리다이렉트
-                response.sendRedirect(front_url);
-            }
+        return (request, response, authentication) -> {
+            response.sendRedirect(front_url);
         };
     }
 
@@ -47,18 +43,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(front_url));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of(
-                "Authorization",
-                "Cache-Control",
-                "Content-Type",
-                "Origin",
-                "Accept",
-                "Referer",
-                "User-Agent",
-                "Access-Control-Allow-Origin",
-                "*"
-        ));
-        configuration.setExposedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setAllowedHeaders(List.of("*"));  // 모든 헤더 허용으로 단순화
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
@@ -94,10 +79,22 @@ public class SecurityConfig {
                         )
                         .successHandler(oauth2AuthenticationSuccessHandler())
                 )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                        .maximumSessions(1)
+                        .expiredUrl(front_url + "/login")
+                )
                 .logout(logout -> logout
-                        .logoutSuccessUrl(front_url + "/login")
+                        .logoutUrl("/api/auth/logout")
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            response.setStatus(HttpStatus.OK.value());
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.getWriter().write("{\"message\":\"Logout successful\",\"status\":\"success\"}");
+                        })
                         .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID", "SESSION") // Redis 세션 쿠키 이름 수정
+                        .permitAll()
                 );
 
         return http.build();

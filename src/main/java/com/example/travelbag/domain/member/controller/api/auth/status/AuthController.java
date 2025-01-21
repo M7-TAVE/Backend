@@ -1,8 +1,12 @@
 package com.example.travelbag.domain.member.controller.api.auth.status;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -103,11 +107,23 @@ public class AuthController {
 
 
     @PostMapping("/logout")
-    public ResponseEntity<Map<String, Object>> logout() {
-        // 로그 출력
-        System.out.println("Logout API called");
+    public ResponseEntity<Map<String, Object>> logout(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("=== Logout Process Started ===");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // 수동으로 인증 상태 초기화
+        System.out.println("Current Authentication: " +
+                (authentication != null ? authentication.getName() : "anonymous"));
+        System.out.println("Session ID: " + request.getSession(false) != null ?
+                request.getSession().getId() : "no session");
+
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+            SecurityContextHolder.clearContext();
+            System.out.println("Logout successful - session invalidated");
+        } else {
+            System.out.println("No authentication found to logout");
+        }
+
         Map<String, Object> authInfo = Map.of(
                 "isAuthenticated", false,
                 "kakaoId", null,
@@ -115,9 +131,9 @@ public class AuthController {
                 "nickname", null
         );
 
-        // 성공 응답 반환
+        System.out.println("=== Logout Process Completed ===");
         return ResponseEntity.ok(Map.of(
-                "message", "Logout API called successfully",
+                "message", "Logged out successfully",
                 "authInfo", authInfo
         ));
     }
