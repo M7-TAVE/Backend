@@ -1,5 +1,6 @@
 package com.example.travelbag.domain.member.controller.api.auth.status;
 
+import com.example.travelbag.domain.member.controller.api.AuthApi;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class AuthController implements AuthApi {
 
     private final OAuth2AuthorizedClientService authorizedClientService;
 
@@ -26,6 +27,7 @@ public class AuthController {
     }
 
     @GetMapping("/status")
+    @Override
     public ResponseEntity<Map<String, Object>> getAuthStatus(Authentication authentication) {
         try {
             System.out.println("Starting /api/auth/status"); // 디버깅 로그 추가
@@ -107,6 +109,7 @@ public class AuthController {
 
 
     @PostMapping("/logout")
+    @Override
     public ResponseEntity<Map<String, Object>> logout(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("=== Logout Process Started ===");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

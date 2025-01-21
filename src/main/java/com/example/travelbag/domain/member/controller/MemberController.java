@@ -27,9 +27,4 @@ public class MemberController implements MemberApi {
         MemberResponseDto member = memberService.getMember(memberId);
         return ResponseEntity.ok(member);
     }
-
-    @GetMapping("/test")
-    public String test() {
-        return "Test Successful!";
-    }
 }
