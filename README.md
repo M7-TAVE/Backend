@@ -46,7 +46,7 @@
 <br>
 
 ## 📰 API Specification
-- [Swagger 확인하기](https://www.jionly.tech/swagger-ui/index.html#/)
+- [Swagger 확인하기](https://m7-tave.github.io/travelbag-swagger-ui/)
 <br>
 
 ## 📂 Commit convention-
