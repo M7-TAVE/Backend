@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LoginController {
+public class LoginController implements LoginApi{
 
     @GetMapping("/login-success")
+    @Override
     public String loginSuccess(Authentication authentication) {
         // 로그인 성공 시 사용자 정보 가져오기
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
@@ -16,6 +17,7 @@ public class LoginController {
     }
 
     @GetMapping("/login-failure")
+    @Override
     public String loginFailure() {
         // 로그인 실패 시 메시지 표시
         return "로그인 실패! 다시 시도하세요.";
