@@ -23,26 +23,20 @@
 ## 🛠️ Technology Stack 
 
 #### Framework - <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-social&logo=Spring Boot&logoColor=white">  <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-social&logo=Gradle&logoColor=white">
-
 #### ORM - <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=for-the-social&logo=Databricks&logoColor=white">
-
 #### Authorization - <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-social&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/OAuth 2.0-000000?style=for-the-social&logo=OAuth&logoColor=white">
-
 #### Database - <img src="https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-social&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/Redis-%23DD0031.svg?logo=redis&logoColor=white">
-
 #### AWS - <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=for-the-social&logo=amazonec2&logoColor=white"> <img src="https://img.shields.io/badge/AWS LoadBalancer-FF9900?style=for-the-social&logo=awselasticloadbalancing&logoColor=white"> <img src="https://img.shields.io/badge/AWS Route 53-8C4FFF?style=for-the-social&logo=amazonroute53&logoColor=white"> <img src="https://img.shields.io/badge/AWS RDS-527FFF?style=for-the-social&logo=amazonrds&logoColor=white"> <img src="https://img.shields.io/badge/AWS Certificate Manager-DD344C?style=for-the-social&logo=aws&logoColor=white"> <img src="https://img.shields.io/badge/AWS IAM-DD344C?style=for-the-social&logo=amazoniam&logoColor=white">
-
 #### CI/CD - <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?logo=github-actions&logoColor=white">
-
 #### Other - <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-social&logo=Postman&logoColor=white"> <img src="https://img.shields.io/badge/Swagger-6DB33F?style=for-the-social&logo=swagger&logoColor=white"> <img src="https://img.shields.io/badge/IntelliJ-000000.svg?logo=intellij-idea&logoColor=white"> <img src="https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff"> <img src="https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white"> <img src="https://img.shields.io/badge/ERDCloud-000000?style=for-the-social&logo=cloud&logoColor=white">
 <br>
 
 ## 🔍 Architecture
-![User1](https://via.placeholder.com/150)
+![Architecture](https://github.com/user-attachments/assets/e88b96ec-70c7-4ae1-801b-38fc2725e4c3)
 <br>
 
 ## ☁️ ERD
-![image](https://github.com/user-attachments/assets/3aaea101-a772-48e1-b171-b58e20e4b6ea)
+![ERD](https://github.com/user-attachments/assets/3aaea101-a772-48e1-b171-b58e20e4b6ea)
 <br>
 
 ## 📰 API Specification
