@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@Tag(name = "여행지", description = "여행지 CRUD API")
+@Tag(name = "여행지", description = "여행지 관련 조회 API")
 public interface LocationApi {
 
     @Operation(

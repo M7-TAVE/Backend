@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@Tag(name = "맛집", description = "맛집 관련 API")
+@Tag(name = "여행지", description = "여행지 관련 조회 API")
 public interface RestaurantApi {
 
     @Operation(
