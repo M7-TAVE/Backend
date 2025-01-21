@@ -68,46 +68,6 @@ public class AuthController implements AuthApi {
         }
     }
 
-//    @GetMapping("/token")
-//    public ResponseEntity<Map<String, String>> getAccessToken(Authentication authentication,
-//                                                              @Autowired OAuth2AuthorizedClientService authorizedClientService) {
-//        System.out.println("Access Token API 호출됨 아주 나이스");
-//
-//        if (authentication == null) {
-//            System.out.println("Authentication 객체가 null입니다.");
-//            return ResponseEntity.status(401).body(Map.of("error", "User not authenticated"));
-//        }
-//
-//        try {
-//            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-//            String clientRegistrationId = oauthToken.getAuthorizedClientRegistrationId();
-//            System.out.println("Client Registration ID: " + clientRegistrationId);
-//
-//            OAuth2AuthorizedClient authorizedClient =
-//                    authorizedClientService.loadAuthorizedClient(clientRegistrationId, oauthToken.getName());
-//
-//            if (authorizedClient == null) {
-//                System.out.println("Authorized Client가 null입니다.");
-//                return ResponseEntity.status(500).body(Map.of("error", "Authorized client not found"));
-//            }
-//
-//            if (authorizedClient.getAccessToken() == null) {
-//                System.out.println("Access Token이 null입니다.");
-//                return ResponseEntity.status(500).body(Map.of("error", "Access token not available"));
-//            }
-//
-//            String kakaoAccessToken = authorizedClient.getAccessToken().getTokenValue();
-//            System.out.println("Access Token: " + kakaoAccessToken);
-//
-//            return ResponseEntity.ok(Map.of("accessToken", kakaoAccessToken));
-//        } catch (Exception e) {
-//            System.out.println("예외 발생: " + e.getMessage());
-//            e.printStackTrace();
-//            return ResponseEntity.status(500).body(Map.of("error", "Unexpected error occurred: " + e.getMessage()));
-//        }
-//    }
-
-
     @PostMapping("/logout")
     @Override
     public ResponseEntity<Map<String, Object>> logout(HttpServletRequest request, HttpServletResponse response) {
@@ -140,58 +100,4 @@ public class AuthController implements AuthApi {
                 "authInfo", authInfo
         ));
     }
-//    @PostMapping("/logout")
-//    public ResponseEntity<Map<String, Object>> logout(@RequestHeader("Authorization") String authorizationHeader) {
-//        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-//                    "error", "Authorization header is missing or invalid"
-//            ));
-//        }
-//
-//        // Bearer 접두어 제거 후 Access Token 추출
-//        String accessToken = authorizationHeader.replace("Bearer ", "").trim();
-//        String kakaoLogoutUrl = "https://kapi.kakao.com/v1/user/logout";
-//
-//        try {
-//            // 카카오 로그아웃 API 호출
-//            RestTemplate restTemplate = new RestTemplate();
-//            var headers = new org.springframework.http.HttpHeaders();
-//            headers.set("Authorization", "Bearer " + accessToken);
-//
-//            var request = new org.springframework.http.HttpEntity<>(headers);
-//            var response = restTemplate.postForEntity(kakaoLogoutUrl, request, String.class);
-//
-//            // 로그아웃 성공 여부 확인
-//            if (response.getStatusCode().is2xxSuccessful()) {
-//                // Spring Security 세션 초기화
-//                SecurityContextHolder.clearContext();
-//                System.out.println("Kakao logout successful. Token: " + accessToken);
-//
-//                return ResponseEntity.ok(Map.of(
-//                        "message", "Successfully logged out"
-//                ));
-//            } else {
-//                System.out.println("Kakao logout failed with status: " + response.getStatusCode());
-//                return ResponseEntity.status(response.getStatusCode()).body(Map.of(
-//                        "error", "Kakao logout failed"
-//                ));
-//            }
-//        } catch (HttpStatusCodeException ex) {
-//            // 카카오 API에서 반환된 HTTP 상태 코드와 응답 메시지 처리
-//            System.out.println("Error during Kakao logout. Status: " + ex.getStatusCode() + ", Response: " + ex.getResponseBodyAsString());
-//            return ResponseEntity.status(ex.getStatusCode()).body(Map.of(
-//                    "error", ex.getResponseBodyAsString()
-//            ));
-//        } catch (Exception e) {
-//            // 일반 예외 처리
-//            System.out.println("Unexpected error during Kakao logout: " + e.getMessage());
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-//                    "error", "Unexpected error occurred"
-//            ));
-//        }
-//    }
-
-
-
 }
