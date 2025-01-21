@@ -43,8 +43,7 @@
 <br>
 
 ## ☁️ ERD
-![image](https://github.com/user-attachments/assets/17658702-265c-400f-a267-5f2462209135)
-![image](https://github.com/user-attachments/assets/d7487eeb-bf2b-4dd4-8e92-af3f861907b8)
+![image](https://github.com/user-attachments/assets/3aaea101-a772-48e1-b171-b58e20e4b6ea)
 <br>
 
 ## 📰 API Specification
